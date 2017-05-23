@@ -1,0 +1,31 @@
+﻿
+<section class="gallery section-padding parallax-flower" data-bg-image-top="/Content/images/big-flower.png" data-bg-image-bottom="/Content/images/big-flower-bt.png" id="gallery">
+    <div class="container">
+        <div class="row section-title">
+            <div class="title-box">
+                <div class="double-line double-line-top">
+                    <i class="fi flaticon-social"></i>
+                    <i class="fi flaticon-social"></i>
+                </div>
+                <h2>Galeria de Fotos</h2>
+                <div class="double-line double-line-bottom"></div>
+            </div>
+        </div> <!-- end of section-title -->
+        <div class="row gallery-boxes masonry-gallery css-animation fadeUpSlow">
+            @for (int i = 1; i < 69; i++)
+            {
+                <div class="col col-md-3 col-xs-6 grid-item">
+                    <div class="box">
+                        <a href="~/Content/MyImages/Galeria Site/grande/S&J-@(i).jpg" class="fancybox" data-fancybox="gallery">
+                            <img src="~/Content/MyImages/Galeria Site/pequeno/S&J-@(i).jpg" class="img img-responsive" alt="" />
+                            <div class="fade-icon">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div> <!-- end of container -->
+</section>
+
