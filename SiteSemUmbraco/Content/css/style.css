@@ -1310,7 +1310,6 @@ footer .copyright {
     .hero .announcement-wrapper .married-text {
         letter-spacing: -2px;
         text-shadow: 1px 2px #2a2a2a;
-
     }
 
         .hero .announcement-wrapper .married-text span {
@@ -1438,7 +1437,7 @@ footer .copyright {
     }
 }
 
-.hero .hero-slider  {
+.hero .hero-slider {
     margin: 0;
     padding: 0;
     position: relative;
@@ -1446,20 +1445,20 @@ footer .copyright {
 }
 
 @media (max-width: 767px) {
-    .hero .hero-slider  {
+    .hero .hero-slider {
         top: -65px;
     }
 }
 
-.hero .hero-slider .owl-dots{
+.hero .hero-slider .owl-dots {
     text-align: center;
     margin-top: -87px;
 }
 
-.hero .hero-slider .owl-dots .owl-dot span {
-    background-color: transparent;
-    margin: 0 20px 0 0;
-}
+    .hero .hero-slider .owl-dots .owl-dot span {
+        background-color: transparent;
+        margin: 0 20px 0 0;
+    }
 
 @media (max-width: 450px) {
     .hero .hero-slider .owl-dots .owl-dot span {
@@ -1472,8 +1471,8 @@ footer .copyright {
     content: "\f004";
     font-size: 20px;
     color: #aa9a45;
-    opacity: 0.5;
-    cursor:pointer;
+    opacity: 0.4;
+    cursor: pointer;
 }
 
 @media (max-width: 450px) {
@@ -1556,6 +1555,13 @@ footer .copyright {
 @media (max-width: 767px) {
     .couple .pic:before {
         display: none;
+    }
+
+    .story .tab-content .tab-pane img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 150px;
     }
 }
 
@@ -1759,11 +1765,11 @@ footer .copyright {
     background-color: #fff;
     margin-top: 2px;
     padding-right: 15px;
-    min-height:352px;
+    min-height: 352px;
 }
 
 .tab-pane img {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 @media (max-width: 767px) {
@@ -1784,7 +1790,7 @@ footer .copyright {
         margin: 0 0 0.5em;
         text-transform: uppercase;
         letter-spacing: 2px;
-        text-shadow:none;
+        text-shadow: none;
     }
 
 @media (max-width: 767px) {
@@ -2168,13 +2174,24 @@ footer .copyright {
 #0.3	paisDosNoivos
 --------------------------------------------------------------*/
 .paisDosNoivos {
-    background: url("../images/padrinhos-bg.jpg") center center/cover no-repeat fixed;
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
     position: relative;
-    padding-bottom: 376px;
+    position: relative;
 }
+
+    .paisDosNoivos::after {
+        background: url("../images/pais-bg.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.2;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
 
 .TituloPadrinhos {
     color: white;
@@ -2207,7 +2224,7 @@ footer .copyright {
     .paisDosNoivos .bridesmaids h3 {
         font-size: 22px;
         font-weight: bold;
-        color: #FFF;
+        color: #aa9a45;
         margin: 0 0 1.5em;
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -2218,19 +2235,20 @@ footer .copyright {
     .paisDosNoivos .groomsmen h3,
     .paisDosNoivos .bridesmaids h3 {
         font-size: 18px;
+        text-align: center !important;
     }
 }
 
-.paisDosNoivos .groomsmen ,
-.paisDosNoivos .bridesmaids  {
-    position: absolute;
+.paisDosNoivos .groomsmen,
+.paisDosNoivos .bridesmaids {
+    /*position: absolute;*/
     top: -70px;
 }
 
 @media (max-width: 767px) {
-    .paisDosNoivos .groomsmen ,
-    .paisDosNoivos .bridesmaids  {
-        top: -60px;
+    .paisDosNoivos .groomsmen,
+    .paisDosNoivos .bridesmaids {
+        top: 0;
     }
 }
 
@@ -2253,47 +2271,43 @@ footer .copyright {
     border-radius: 0;
 }
 
-    .paisDosNoivos .groomsmen  .owl-prev:hover,
-    .paisDosNoivos .groomsmen  .owl-next:hover,
-    .paisDosNoivos .bridesmaids  .owl-prev:hover,
-    .paisDosNoivos .bridesmaids  .owl-next:hover {
+    .paisDosNoivos .groomsmen .owl-prev:hover,
+    .paisDosNoivos .groomsmen .owl-next:hover,
+    .paisDosNoivos .bridesmaids .owl-prev:hover,
+    .paisDosNoivos .bridesmaids .owl-next:hover {
         background-color: #aa9a45;
     }
 
 @media (max-width: 767px) {
-    .paisDosNoivos .groomsmen  .owl-prev,
-    .paisDosNoivos .groomsmen  .owl-next,
-    .paisDosNoivos .bridesmaids  .owl-prev,
-    .paisDosNoivos .bridesmaids  .owl-next {
+    .paisDosNoivos .groomsmen .owl-prev,
+    .paisDosNoivos .groomsmen .owl-next,
+    .paisDosNoivos .bridesmaids .owl-prev,
+    .paisDosNoivos .bridesmaids .owl-next {
         width: 28px;
         height: 28px;
         line-height: 28px;
     }
 
-        .paisDosNoivos .groomsmen  .owl-prev i,
-        .paisDosNoivos .groomsmen  .owl-next i,
-        .paisDosNoivos .bridesmaids  .owl-prev i,
-        .paisDosNoivos .bridesmaids  .owl-next i {
+        .paisDosNoivos .groomsmen .owl-prev i,
+        .paisDosNoivos .groomsmen .owl-next i,
+        .paisDosNoivos .bridesmaids .owl-prev i,
+        .paisDosNoivos .bridesmaids .owl-next i {
             font-size: 12px;
         }
 }
 
-.paisDosNoivos .groomsmen  .owl-next,
-.paisDosNoivos .bridesmaids  .owl-next {
+.paisDosNoivos .groomsmen .owl-next,
+.paisDosNoivos .bridesmaids .owl-next {
     margin: 0;
 }
 
-.paisDosNoivos .groomsmen  {
+.paisDosNoivos .bridesmaids {
     right: 20px;
 }
 
-.paisDosNoivos .bridesmaids  {
-    right: 20px;
-}
-
-.paisDosNoivos .bridesmaids h3 {
-    text-align: right;
-}
+    .paisDosNoivos .bridesmaids h3 {
+        text-align: right;
+    }
 
 @media (max-width: 991px) {
     .paisDosNoivos .bridesmaids h3 {
@@ -2301,12 +2315,12 @@ footer .copyright {
     }
 }
 
-.paisDosNoivos .bridesmaids  {
+.paisDosNoivos .bridesmaids {
     left: 0;
 }
 
 @media (max-width: 991px) {
-    .paisDosNoivos .bridesmaids  {
+    .paisDosNoivos .bridesmaids {
         left: auto;
         right: 0;
     }
@@ -2317,8 +2331,8 @@ footer .copyright {
     margin-bottom: 15px;
 }
 
-.paisDosNoivos h2,h3 {
-    color:#FFF;
+.paisDosNoivos h2, h3 {
+    color: #aa9a45;
     text-shadow: 1px 2px #2a2a2a;
 }
 
@@ -2336,17 +2350,18 @@ footer .copyright {
     padding-bottom: 105px;
 }
 
-.padrinhos .groomsmen h3 {
-    text-align:left;
-}
-.padrinhos:before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
+    .padrinhos .groomsmen h3 {
+        text-align: left;
+    }
+
+    .padrinhos:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 
 .TituloPadrinhos {
     color: white;
@@ -2415,38 +2430,39 @@ footer .copyright {
 .padrinhos .groomsmen .owl-nav {
     right: 0;
 }
-    .padrinhos .groomsmen  .owl-prev:hover,
-    .padrinhos .groomsmen  .owl-next:hover,
-    .padrinhos .bridesmaids  .owl-prev:hover,
-    .padrinhos .bridesmaids  .owl-next:hover {
-        background-color: #aa9a45;
-        cursor:pointer;
-    }
+
+.padrinhos .groomsmen .owl-prev:hover,
+.padrinhos .groomsmen .owl-next:hover,
+.padrinhos .bridesmaids .owl-prev:hover,
+.padrinhos .bridesmaids .owl-next:hover {
+    background-color: #aa9a45;
+    cursor: pointer;
+}
 
 @media (max-width: 767px) {
-    .padrinhos .groomsmen  .owl-prev,
-    .padrinhos .groomsmen  .owl-next,
-    .padrinhos .bridesmaids  .owl-prev,
-    .padrinhos .bridesmaids  .owl-next {
+    .padrinhos .groomsmen .owl-prev,
+    .padrinhos .groomsmen .owl-next,
+    .padrinhos .bridesmaids .owl-prev,
+    .padrinhos .bridesmaids .owl-next {
         width: 28px;
         height: 28px;
         line-height: 28px;
     }
 
-        .padrinhos .groomsmen  .owl-prev i,
-        .padrinhos .groomsmen  .owl-next i,
-        .padrinhos .bridesmaids  .owl-prev i,
-        .padrinhos .bridesmaids  .owl-next i {
+        .padrinhos .groomsmen .owl-prev i,
+        .padrinhos .groomsmen .owl-next i,
+        .padrinhos .bridesmaids .owl-prev i,
+        .padrinhos .bridesmaids .owl-next i {
             font-size: 12px;
         }
 }
 
-.padrinhos .groomsmen  .owl-next,
-.padrinhos .bridesmaids  .owl-next {
+.padrinhos .groomsmen .owl-next,
+.padrinhos .bridesmaids .owl-next {
     margin: 0;
 }
 
-.padrinhos .groomsmen  {
+.padrinhos .groomsmen {
     right: 0;
 }
 
@@ -2460,12 +2476,12 @@ footer .copyright {
     }
 }
 
-.padrinhos .bridesmaids  {
+.padrinhos .bridesmaids {
     left: 0;
 }
 
 @media (max-width: 991px) {
-    .padrinhos .bridesmaids  {
+    .padrinhos .bridesmaids {
         left: auto;
         right: 0;
     }
@@ -2476,8 +2492,8 @@ footer .copyright {
     margin-bottom: 15px;
 }
 
-.padrinhos h2,h3 {
-    color:#FFF;
+.padrinhos h2, h3 {
+    color: #FFF;
     text-shadow: 1px 2px #2a2a2a;
 }
 
@@ -2485,6 +2501,18 @@ footer .copyright {
     position: absolute;
     top: -70px;
 }
+
+@media (max-width: 767px) {
+    .padrinhos .groomsmen .owl-nav, .padrinhos .bridesmaids .owl-nav {
+        position: absolute;
+        top: -32px;
+    }
+
+    .padrinhos .bridesmaids .owl-nav {
+        right: 0;
+    }
+}
+
 /*--------------------------------------------------------------
 #1.1	gallery
 --------------------------------------------------------------*/
@@ -3008,17 +3036,22 @@ footer .copyright {
 modal Recados
 --------------------------------------------------------------*/
 .modal-content h3 {
-    text-shadow:none;
-    color:#595959;
+    text-shadow: none;
+    color: #595959;
 }
 
 /*--------------------------------------------------------------
 presentes
 --------------------------------------------------------------*/
 .pequeninos h4 {
-    text-align:center;
+    text-align: center;
 }
 
+@media (max-width: 767px) {
+    .pequeninos h4 {
+        font-size: 12px;
+    }
+}
 /*--------------------------------------------------------------
 presentes
 --------------------------------------------------------------*/
@@ -3067,7 +3100,7 @@ presentes
 
 .envieSeuRecado {
     margin: 70px 0 0 0;
-    font-size:18px;
+    font-size: 18px;
 }
 
     .envieSeuRecado a {
@@ -3077,4 +3110,21 @@ presentes
 
 .modal-title {
     margin-bottom: -30px;
+}
+
+
+.facaVcTmb {
+    color: #FFF;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* IE 6 */
+* html .facaVcTmb {
+    position: absolute;
+    top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
 }

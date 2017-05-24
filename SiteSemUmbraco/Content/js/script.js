@@ -56,8 +56,8 @@
 
                 $(this).css({
                     backgroundImage: "url(" + img + ")",
-                    backgroundPosition: "50%" + positionValue,
-                    backgroundSize: "cover"
+                    backgroundSize: "cover",
+                    backgroundPosition: "50%"+positionValue
                 });
             });
         }
@@ -75,7 +75,7 @@
                 $this.css({
                     backgroundImage: "url("+ imgSrc +")",
                     backgroundSize: "cover",
-                    //backgroundPosition: "center center"
+                    backgroundPosition: "center center"
                 })
 
             });
@@ -254,6 +254,7 @@
             }
 
             eventBoxes.appear();
+
             $(document.body).on('appear', '.event-boxes', function() {
                 if (!leftHalf.hasClass('appeared') || rightHalf.hasClass("appeared")) {
                     leftHalf.addClass('appeared slideOutLeft');

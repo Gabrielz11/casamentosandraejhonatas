@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /*!
  * animate.css -http://daneden.me/animate
@@ -3481,8 +3481,8 @@
 }
 
 .slideOutLeft {
-  -webkit-animation: slideOutLeft 2s cubic-bezier(.26,.92,.47,1) 1.5s alternate forwards;
-  animation: slideOutLeft 2s cubic-bezier(.26,.92,.47,1) 1.5s alternate forwards;
+  -webkit-animation: slideOutLeft 1s cubic-bezier(.26,.92,.47,1) 1.0s alternate forwards;
+  animation: slideOutLeft 1s cubic-bezier(.26,.92,.47,1) 1.0s alternate forwards;
 }
 
 @-webkit-keyframes slideOutRight {
@@ -3512,8 +3512,8 @@
 }
 
 .slideOutRight {
-  -webkit-animation: slideOutRight 2s cubic-bezier(.26,.92,.47,1) 1.5s alternate forwards;
-  animation: slideOutRight 2s cubic-bezier(.26,.92,.47,1) 1.5s alternate forwards;
+  -webkit-animation: slideOutRight 1s cubic-bezier(.26,.92,.47,1) 1.0s alternate forwards;
+  animation: slideOutRight 1s cubic-bezier(.26,.92,.47,1) 1.0s alternate forwards;
 }
 
 
