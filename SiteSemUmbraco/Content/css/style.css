@@ -1257,7 +1257,7 @@ footer .copyright {
 --------------------------------------------------------------*/
 .hero {
     position: relative;
-    height: 100vh;
+    height: 103vh;
     /** slider dots **/
 }
 
@@ -1646,12 +1646,18 @@ footer .copyright {
 }
 
 .couple .groom {
-    margin-bottom: 80px;
+    margin-bottom: 20px;
 }
 
-    .couple .groom .details {
-        padding-left: 40px;
+@media (max-width: 767px) {
+    .couple .groom {
+        margin-bottom: -10px;
     }
+}
+
+.couple .groom .details {
+    padding-left: 40px;
+}
 
 @media (max-width: 991px) {
     .couple .groom .details {
@@ -2178,7 +2184,6 @@ footer .copyright {
     color: #fff;
     padding: 100px 0 90px;
     position: relative;
-    position: relative;
 }
 
     .paisDosNoivos::after {
@@ -2551,6 +2556,28 @@ footer .copyright {
 /*--------------------------------------------------------------
 #1.2	gift-registry
 --------------------------------------------------------------*/
+
+.gift-registry {
+    text-align: center;
+    color: #fff;
+    padding: 100px 0 90px;
+    position: relative;
+}
+
+    .gift-registry::after {
+        background: url("../images/lojas-bg.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.2;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+
+
 @media (max-width: 767px) {
     .gift-registry {
         padding-bottom: 65px;
@@ -3041,7 +3068,7 @@ modal Recados
 }
 
 /*--------------------------------------------------------------
-presentes
+pequeninos
 --------------------------------------------------------------*/
 .pequeninos h4 {
     text-align: center;
@@ -3069,12 +3096,12 @@ presentes
     }
 
         .presentes .presentes-slider .text p {
-            font-size: 30px;
+            font-size: 20px;
             margin-bottom: 20px;
         }
 
         .presentes .presentes-slider .footer p {
-            font-size: 13px;
+            font-size: 12px;
         }
 }
 
@@ -3100,7 +3127,7 @@ presentes
 
 .envieSeuRecado {
     margin: 70px 0 0 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
     .envieSeuRecado a {
@@ -3114,17 +3141,11 @@ presentes
 
 
 .facaVcTmb {
+    margin-top: 90px;
     color: #FFF;
-    position: fixed;
     left: 0px;
     bottom: 0px;
     width: 100%;
     font-size: 11px;
     text-align: center;
-}
-
-/* IE 6 */
-* html .facaVcTmb {
-    position: absolute;
-    top: expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
 }
