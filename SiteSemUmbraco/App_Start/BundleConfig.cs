@@ -35,6 +35,9 @@ namespace SiteSemUmbraco
                 .Include("~/Content/js/jquery.countdown-pt-BR.js")
                 .Include("~/Content/js/script.js");
             bundles.Add(bundle);
+
+            bundles.Add(new ScriptBundle("~/bundles/firebase").Include("~/Scripts/InitFirebase.js"));
+
         }
     }
 }

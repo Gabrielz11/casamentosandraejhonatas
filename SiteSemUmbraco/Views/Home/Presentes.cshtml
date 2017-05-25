@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Presentes";
+}
+@section head {
+    <link href="~/Content/css/presentes.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+}
+@Scripts.Render("~/bundles/firebase")
+
+<div class="container">
+    <div class="row main">
+        <div class="main-login main-center">
+            <h5>Cadastro de presentes.</h5>
+            <form class="" method="post" action="#" id="target">
+
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-gift fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Presente" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button type="submit" id="btnCadastrar" class="btn btn-default btn-lg btn-block login-button">Cadastrar</button>
+                </div>
+            </form>
+            <hr />
+            <label>Presentes cadastrados</label>
+            <div class="well" id="giftGrid">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts {
+
+    <script>
+
+        var database=firebase.database();
+        var giftRef=firebase.database().ref('gift/');
+        giftRef.on('value',function(snapshot)
+        {
+            list=_.sortBy(snapshot.val(),'name');
+            $.each(list,function(key,value)
+            {
+                toggleLine(value);
+            });
+        });
+
+        giftRef.on('child_changed',function(snapshot)
+        {
+            console.log(snapshot.val());
+            var element=$("#"+snapshot.key)
+            console.log($(element).parent().find('.content')[0].textContent=snapshot.val().name);
+        });
+
+
+        $("#target").submit(function(event)
+        {
+            event.preventDefault();
+            writeGiftData()
+            $('#name').val('');
+            $('#name').data('key','')
+            return;
+        });
+
+        function writeGiftData()
+        {
+            var name=$('#name').val();
+            var newGiftKey=$('#name').data('key');
+            if(name.length>0)
+            {
+                if(!newGiftKey)
+                {
+                    newGiftKey=firebase.database().ref().child('gift/').push().key;
+                }
+                var gitData={
+                    name: name,
+                    key: newGiftKey
+                };
+                var updates={};
+                updates['gift/'+newGiftKey]=gitData;
+                firebase.database().ref().update(updates);
+            }
+        }
+
+        function toggleLine(data)
+        {
+            var element=$("#"+data.key).prop('id');
+            if(!element)
+            {
+                $('#giftGrid').prepend('<div class="row"><div class="col-lg-10 content">'+data.name+'</div><a title="Editar" id="'+data.key+'" href="javascript:;" onclick="edit(this)" ><div class="col-lg-1"><i class="fa fa-pencil-square-o fa-fw"></i></div></a><a title="Excluir" class="deleteBtn" id="'+data.key+'" href="javascript:;" onclick="remove(this)" ><div class="col-lg-1"><i class="fa fa-times fa-fw"></i></div></a></div>')
+            }
+        }
+
+        function edit(row)
+        {
+            var key=$(row).prop('id');
+            $('#name').data('key',key);
+            $('#name').val($("#"+key).parent()[0].textContent);
+        }
+
+        function remove(row)
+        {
+            var key=$(row).prop('id');
+            $("#"+key).parent().fadeOut();
+            setTimeout(function() { $("#"+key).parent().remove(); },2000);
+            firebase.database().ref('gift/'+key).remove();
+        }
+
+
+    </script>
+
+}

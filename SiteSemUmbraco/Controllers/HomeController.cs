@@ -32,5 +32,10 @@ namespace SiteSemUmbraco.Controllers
             smtp.Send(oMail);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Presentes()
+        {
+            return View();
+        }
     }
 }
