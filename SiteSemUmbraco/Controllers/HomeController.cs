@@ -33,7 +33,7 @@ namespace SiteSemUmbraco.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Presentes()
+        public ActionResult temp()
         {
             return View();
         }

@@ -1,0 +1,26 @@
+{
+  "name": "sitesemumbraco",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "firebaseui": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhonnhenry/casamentosandraejhonatas.git"
+  },
+  "keywords": [
+    "casamento"
+  ],
+  "author": "Jhonatas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jhonnhenry/casamentosandraejhonatas/issues"
+  },
+  "homepage": "https://github.com/jhonnhenry/casamentosandraejhonatas#readme"
+}
