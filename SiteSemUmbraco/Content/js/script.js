@@ -2,8 +2,6 @@
 {
 
     "use strict";
-
-
     /*------------------------------------------
         = FUNCTIONS
     -------------------------------------------*/
@@ -484,7 +482,7 @@
             submitHandler: function(form)
             {
                 var data=$(form).serialize();
-                console.log(data);
+                PNotify.removeAll();
                 $("#loader").show();
                 $("#btnEnviar").hide();
                 $.ajax({
@@ -560,12 +558,56 @@
 
 
     /*==========================================================================
-    Gifts and Firebase
+    Gifts and Firebase - Home
     ==========================================================================*/
     var initApp=function()
     {
+        var initTranslate=function()
+        {
+            setTimeout(function()
+            {
+                let dl='pt-BR';
+                let bl=navigator.language;
+                let google='Google';
+                let facebook='Facebook';
+                let email='password';
+
+                bl==='en-US'||bl==='en-us'?runlang(bl):runlang(dl);
+
+                function translate(text,provider)
+                {
+                    var container=$('.firebaseui-idp-'+provider.toLowerCase()+' .firebaseui-idp-text-long');
+                    if(provider==='password')
+                    {
+                        provider='email';
+                        container.text(text+' '+provider);
+                    } else
+                    {
+                        container.text(text+' '+provider);
+                    }
+                }
+
+                function runlang(lang)
+                {
+                    if(lang==='en-US'||lang==='en-us')
+                    {
+                        let sign_in='Sign in with';
+                        translate(sign_in,google);
+                        translate(sign_in,facebook);
+                        translate(sign_in,email);
+                    } else
+                    {
+                        let sign_in='Usar o';
+                        translate(sign_in,google);
+                        translate(sign_in,facebook);
+                        translate(sign_in,email);
+                    }
+                }
+            },1000);
+        }; window.addEventListener('load',initTranslate);
+
         new firebaseui.auth.AuthUI(firebase.auth()).start('#firebaseui-auth-container',{
-            callbacks: { signInSuccess: function(currentUser,credential,redirectUrl) { return false; } },
+            callbacks: { signInSuccess: function(currentUser,credential,redirectUrl) { return false; },uiShown: function() { initTranslate(); } },
             credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
             queryParameterForWidgetMode: 'mode',
             queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
@@ -582,15 +624,8 @@
         {
             if(user)
             {
-                console.log(user.displayName);
-                user.getToken().then(function(accessToken)
+                user.getIdToken().then(function(accessToken)
                 {
-                    document.getElementById('account-details').textContent=JSON.stringify({
-                        displayName: user.displayName,
-                        email: user.email,
-                        photoURL: user.photoURL,
-                        uid: user.uid,
-                    },null,'  ');
                     $('#myLoginModal').modal('hide');
                 });
             }
@@ -598,66 +633,180 @@
         {
             console.log(error);
         });
+
+        var database=firebase.database();
+        var giftRef=firebase.database().ref('gift/');
+        giftRef.on('value',function(snapshot)
+        {
+            let list=_.sortBy(snapshot.val(),'name');
+            $.each(list,function(key,value)
+            {
+                toggleLine(value);
+                if(key>=list.length-1)
+                {
+                    $('.gift').unbind("click");
+                    $('.gift').click(function()
+                    {
+                        var gift=$(this).data('gift');
+                        var currentUser=firebase.auth().currentUser;
+                        if(currentUser)
+                        {
+                            donateGiftAndThanks(gift);
+                        }
+                        else
+                        {
+                            $('#myLoginModal').data("gift",$(this).data('gift'));
+                            $('#myLoginModal').data("reason","donateGift");
+                            $('#myLoginModal').modal('show');
+                        }
+                    });
+                }
+            });
+        });
+
+        function toggleLine(gift)
+        {
+            var element=$("#"+gift.key).prop('id');
+            if(!element)
+            {
+                $('#giftlist').append('<a id="'+gift.key+'" class="gift" href="javascript:;">'+gift.name+'</a>')
+                var a=$("#"+gift.key);
+                $(a).data('gift',gift);
+                if(gift.godfatherName&&gift.godfatherName.length>3)
+                {
+                    $(a).addClass('giftwithgodfather');
+                }
+                else
+                {
+                    $(a).removeClass('giftwithgodfather');
+                }
+            }
+        }
+
+        $('.btnSair').unbind("click");
+        $('.btnSair').click(function()
+        {
+            var currentUser=firebase.auth().currentUser;
+            if(currentUser)
+            {
+                var provider=firebase.auth().signOut().then(function(user)
+                {
+                    location.reload();
+                });
+            }
+        });
+
+        $('#myLoginModal').unbind("hidden.bs.modal");
+        $('#myLoginModal').on('hidden.bs.modal',function(event)
+        {
+            switch($(this).data('reason'))
+            {
+                case 'donateGift':
+                    donateGiftAndThanks($(this).data('gift'))
+                    break;
+                case 'confirmPresence':
+                    break;
+                default:
+            }
+        })
+
+        function donateGiftAndThanks(gift)
+        {
+            PNotify.removeAll();
+            var currentUser=firebase.auth().currentUser;
+            if(gift&&currentUser&&currentUser.displayName)
+            {
+                if(gift.godfatherName==currentUser.displayName)
+                {
+                    $('#'+gift.key).removeClass('giftwithgodfather');
+                    writeGiftData({ displayName: '',email: '' },gift);
+                    new PNotify({
+                        title: 'Tudo bem!',
+                        type: 'info',
+                        text: 'Você pode escolher um outro presente se quiser...',
+                        icon: 'glyphicon glyphicon-gift'
+                    });
+                }
+                else
+                {
+                    console.log(gift);
+                    if(gift.godfatherName&&gift.godfatherName!=currentUser.displayName)
+                    {
+                        new PNotify({
+                            title: 'Que pena '+currentUser.displayName+'!',
+                            type: 'error',
+                            text: 'Nós já ganhamos este presente de um outro amigo. Mas você pode escolher outro pra nos dar!',
+                            icon: 'glyphicon glyphicon-gift'
+                        });
+                    }
+                    else
+                    {
+                        new PNotify({
+                            title: 'Sério mesmo?',
+                            text: 'Você quer nos dar o presente <b>'+gift.name+'</b>?',
+                            icon: 'glyphicon glyphicon-question-sign',
+                            confirm: {
+                                confirm: true,
+                                buttons: [{
+                                    text: 'Sim',
+                                    click: function(notice)
+                                    {
+                                        if(writeGiftData(currentUser,gift))
+                                        {
+                                            notice.remove();
+                                            $('#'+gift.key).addClass('giftwithgodfather');
+                                            new PNotify({
+                                                title: 'Que legal!',
+                                                text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
+                                                type: 'success',
+                                                icon: 'glyphicon glyphicon-gift'
+                                            });
+                                        }
+                                    }
+                                },{
+                                    text: 'Não',
+                                    click: function(notice)
+                                    {
+                                        notice.remove();
+                                        new PNotify({
+                                            title: 'Tudo bem!',
+                                            type: 'info',
+                                            text: 'Você pode escolher um outro presente se quiser...',
+                                            icon: 'glyphicon glyphicon-gift'
+                                        });
+                                    }
+                                }]
+                            },
+                            buttons: {
+                                closer: false,
+                                sticker: false
+                            },
+                            history: {
+                                history: false
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        function writeGiftData(godfather,gift)
+        {
+            if(gift&&godfather)
+            {
+                gift.godfatherName=godfather.displayName;
+                gift.godfatherMail=godfather.email;
+                var updates={};
+                updates['gift/'+gift.key]=gift;
+                firebase.database().ref().update(updates);
+                $('#'+gift.key).data('gift',gift);
+                return true;
+            }
+        }
     };
 
     window.addEventListener('load',function()
     {
         initApp();
     });
-
-    $('.btnSair').click(function()
-    {
-        var currentUser=firebase.auth().currentUser;
-        if(currentUser)
-        {
-            var provider=firebase.auth().signOut().then(function(user)
-            {
-                location.reload();
-            });
-        }
-    });
-
-    $('.donateGift').click(function()
-    {
-        var giftid=$(this).data('giftid');
-        var currentUser=firebase.auth().currentUser;
-
-        if(currentUser)
-        {
-            donateGift(giftid);
-        }
-        else
-        {
-            $('#myLoginModal').data("gift",giftid);
-            $('#myLoginModal').data("reason","donateGift");
-            $('#myLoginModal').modal('show');
-        }
-    });
-
-    $('#myLoginModal').on('hidden.bs.modal',function(event)
-    {
-        switch($(this).data('reason')) {
-            case 'donateGift':
-                donateGift($(this).data('gift'))
-                break;
-            case 'confirmPresence':
-
-                break;
-            default:
-        }
-    })
-
-    function donateGift(giftid)
-    {
-        var currentUser=firebase.auth().currentUser;
-        console.log("Doarei este");
-        new PNotify({
-            title: 'Que legal!',
-            text: 'Acabamos de anotar que vamos ganhar o presente tal de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
-            type: 'success',
-            icon: 'glyphicon glyphicon-gift'
-        });
-    }
-
-
 })(window.jQuery);

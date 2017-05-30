@@ -1,53 +1,50 @@
-﻿<script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAl-EDTJ5_uU3zBIX7-wNTu-qSZr1DO5Dw"></script>
-
-@Scripts.Render("~/bundles/firebase")
-<section class="gift-registryyy section-padding">
+﻿<section class="gift-registry section-padding">
     <div class="container">
-@*
-    <div class="row section-title">
-        <div class="title-box">
-            <div class="double-line double-line-top">
-                <i class="fi flaticon-social"></i>
-                <i class="fi flaticon-social"></i>
-            </div>
-            <h2>Listas de Presentes</h2>
-            <div class="double-line double-line-bottom"></div>
-        </div>
-    </div> <!-- end of section-title -->
-
-    <div class="row text">
-        <div class="col col-md-6 col-md-offset-3">
-            <p>Falar sobre a lista</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="clearfix">
-            <div class="col col-sm-6 col-xs-6">
-                <div>
-                    <a target="_blank" href="http://www.ricardoeletro.com.br/ListaCasamento/ListaPresentes/93782/Jhonatas-e-Sandra/">
-                        <img src="~/Content/MyImages/ListaPresentes/ricardo.png" class="img img-responsive" alt="" />
-                    </a>
+        <div class="row section-title">
+            <div class="title-box">
+                <div class="double-line double-line-top">
+                    <i class="fi flaticon-social"></i>
+                    <i class="fi flaticon-social"></i>
                 </div>
-            </div>
-            <div class="col col-sm-6 col-xs-6">
-                <div>
-                    <a target="_blank" href="http://lista.havan.com.br/Convidado/ItensLista/1/11222201">
-                        <img src="~/Content/MyImages/ListaPresentes/havan.png" class="img img-responsive" alt="" />
-                    </a>
-                </div>
+                <h2>Listas de Presentes</h2>
+                <div class="double-line double-line-bottom"></div>
             </div>
         </div>
-    </div>*@
+
+        <div class="row informativeText">
+            <div class="col col-md-6 col-md-offset-3">
+                <p>Nós fizemos uma lista de coisas que vamos precisar na nossa nova casa. Você pode escolher qualquer um pra nos dar, menos os que estão marcados na cor verde. Estes nós já ganhamos! Vamos lá, escolha o seu e faça parte desta história!</p>
+            </div>
+        </div>
 
         <div class="row text">
-            <div class="col col-md-6 col-md-offset-3">
-                <a class="donateGift" href="javascript:;" data-giftid="8q7wguhdbq98whdq9">quero doar</a>
-                <div id="account-details"></div>
-                <a href="javascript:;" class="btnSair">sair</a>
+            <div class="col col-xs-12" id="giftlist">
             </div>
         </div>
-        
-    </div> 
+
+        <div class="row informativeText">
+            <div class="col col-md-6 col-md-offset-3">
+                <p>Nós também fizemos listas em sites conhecidos, se você quiser ver e isto for te ajudar na escolha do presente, clique na logomarca das lojas logo abaixo.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="clearfix">
+                <div class="col col-sm-6 col-xs-6">
+                    <div>
+                        <a target="_blank" href="http://www.ricardoeletro.com.br/ListaCasamento/ListaPresentes/93782/Jhonatas-e-Sandra/">
+                            <img src="~/Content/MyImages/ListaPresentes/ricardo.png" class="img img-responsive" alt="" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col col-sm-6 col-xs-6">
+                    <div>
+                        <a target="_blank" href="http://lista.havan.com.br/Convidado/ItensLista/1/11222201">
+                            <img src="~/Content/MyImages/ListaPresentes/havan.png" class="img img-responsive" alt="" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

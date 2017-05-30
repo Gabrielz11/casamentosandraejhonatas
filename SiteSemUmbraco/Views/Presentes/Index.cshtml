@@ -3,10 +3,8 @@
     ViewBag.Title = "Presentes";
 }
 @section head {
-    <link href="~/Content/css/presentes.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <link href="~/Content/css/presentes.css" rel="stylesheet" />    
 }
-@Scripts.Render("~/bundles/firebase")
 
 <div class="container">
     <div class="row main">
@@ -18,7 +16,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-gift fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Presente" />
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Presente" autocomplete="off" />
                         </div>
                     </div>
                 </div>
@@ -36,14 +34,12 @@
     </div>
 </div>
 @section scripts {
-
     <script>
-
         var database=firebase.database();
         var giftRef=firebase.database().ref('gift/');
         giftRef.on('value',function(snapshot)
         {
-            list=_.sortBy(snapshot.val(),'name');
+            let list=_.sortBy(snapshot.val(),'name');
             $.each(list,function(key,value)
             {
                 toggleLine(value);
@@ -54,7 +50,7 @@
         {
             console.log(snapshot.val());
             var element=$("#"+snapshot.key)
-            console.log($(element).parent().find('.content')[0].textContent=snapshot.val().name);
+            $(element).parent().find('.content')[0].textContent=snapshot.val().name
         });
 
 
@@ -63,26 +59,22 @@
             event.preventDefault();
             writeGiftData()
             $('#name').val('');
-            $('#name').data('key','')
             return;
         });
 
         function writeGiftData()
         {
-            var name=$('#name').val();
-            var newGiftKey=$('#name').data('key');
-            if(name.length>0)
+            var gift=$('#name').data('gift');
+            if(!gift) { gift={};}
+            gift.name=$('#name').val().toUpperCase();
+            if(gift.name.length>0)
             {
-                if(!newGiftKey)
+                if(!gift.key)
                 {
-                    newGiftKey=firebase.database().ref().child('gift/').push().key;
+                    gift.key=firebase.database().ref().child('gift/').push().key;
                 }
-                var gitData={
-                    name: name,
-                    key: newGiftKey
-                };
                 var updates={};
-                updates['gift/'+newGiftKey]=gitData;
+                updates['gift/'+gift.key]=gift;
                 firebase.database().ref().update(updates);
             }
         }
@@ -92,15 +84,18 @@
             var element=$("#"+data.key).prop('id');
             if(!element)
             {
-                $('#giftGrid').prepend('<div class="row"><div class="col-lg-10 content">'+data.name+'</div><a title="Editar" id="'+data.key+'" href="javascript:;" onclick="edit(this)" ><div class="col-lg-1"><i class="fa fa-pencil-square-o fa-fw"></i></div></a><a title="Excluir" class="deleteBtn" id="'+data.key+'" href="javascript:;" onclick="remove(this)" ><div class="col-lg-1"><i class="fa fa-times fa-fw"></i></div></a></div>')
+                $('#giftGrid').prepend('<div class="row"><div class="col-lg-6 content">'+data.name+'</div><div class="col-lg-4">'+(data.godfatherName?data.godfatherName:'')+'</div><a title="Editar" id="'+data.key+'" href="javascript:;" onclick="edit(this)" ><div class="col-lg-1"><i class="fa fa-pencil-square-o fa-fw"></i></div></a><a title="Excluir" class="deleteBtn" id="'+data.key+'" href="javascript:;" onclick="remove(this)" ><div class="col-lg-1"><i class="fa fa-times fa-fw"></i></div></a></div>')
+                var a=$("a#"+data.key);
+                $(a).data('gift',data);
+
             }
         }
 
         function edit(row)
         {
             var key=$(row).prop('id');
-            $('#name').data('key',key);
-            $('#name').val($("#"+key).parent()[0].textContent);
+            $('#name').data('gift',$(row).data('gift'));
+            $('#name').val($(row).data('gift').name);
         }
 
         function remove(row)
@@ -111,7 +106,5 @@
             firebase.database().ref('gift/'+key).remove();
         }
 
-
     </script>
-
 }

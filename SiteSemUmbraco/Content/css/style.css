@@ -2584,9 +2584,10 @@ footer .copyright {
     }
 }
 
-.gift-registry .text {
+.gift-registry .informativeText {
     text-align: center;
-    margin: -0.6em 0 4.5em;
+    margin: -1.6em 0 0.5em;
+    font-size: 16px;
 }
 
 .gift-registry .col > div img {
@@ -3149,3 +3150,48 @@ presentes
     font-size: 11px;
     text-align: center;
 }
+
+#giftlist {
+    min-height: 50px;
+    padding: 10px 10px 30px 10px;
+    text-align: center;
+}
+
+.gift {
+    font-weight: 500;
+    display: inline-table;
+    padding: 5px 15px 5px 15px;
+    background-color: #bfbebd;
+    color: #FFF;
+    margin: 5px 5px 5px 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.gift:before {
+    content: "\f06b";
+    font-family: FontAwesome;
+    margin-right: 8px;
+    margin-left: -4px;
+}
+
+.giftwithgodfather:before {
+    content: "\f00c";
+    font-family: FontAwesome;
+    margin-right: 8px;
+    margin-left: -4px;
+}
+
+.gift:hover {
+    color: #000;
+}
+
+a.gift:link {
+    text-decoration: none;
+}
+
+.giftwithgodfather {
+    color: white;
+    background-color: #85bd24;
+}
+

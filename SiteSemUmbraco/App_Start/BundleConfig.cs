@@ -32,12 +32,18 @@ namespace SiteSemUmbraco
             bundle
                 .Include("~/Content/js/bootstrap.min.js")
                 .Include("~/Content/js/jquery-plugin-collection.js")
-                .Include("~/Content/js/jquery.countdown-pt-BR.js")
-                .Include("~/Content/js/script.js");
+                .Include("~/Content/js/jquery.countdown-pt-BR.js");
             bundles.Add(bundle);
 
-            bundles.Add(new ScriptBundle("~/bundles/firebase").Include("~/Scripts/InitFirebase.js"));
+            var cBundle = new ScriptBundle("~/bundles/customScripts");
+            cBundle.Orderer = new AsIsBundleOrderer();
+            cBundle.Include("~/Content/js/script.js");
+            bundles.Add(cBundle);
 
+            var Firebase = new ScriptBundle("~/bundles/Firebase");
+            Firebase.Orderer = new AsIsBundleOrderer();
+            Firebase.Include("~/Scripts/InitFirebase.js");
+            bundles.Add(Firebase);
         }
     }
 }
