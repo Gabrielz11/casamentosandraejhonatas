@@ -1,9 +1,5 @@
 ﻿using System.Web.Mvc;
-using System.Threading.Tasks;
 using System.Net.Mail;
-using System.Configuration;
-using System.Web;
-using System;
 
 
 namespace SiteSemUmbraco.Controllers
@@ -16,14 +12,14 @@ namespace SiteSemUmbraco.Controllers
         }
 
         [HttpPost]
-        public JsonResult Contact(string name, string email, string text)
+        public JsonResult Contact(string name, string email, string text, string subject)
         {
             MailMessage oMail = new MailMessage();
             System.Text.StringBuilder txtMsg = new System.Text.StringBuilder();
             oMail.To.Add(new MailAddress("casamentosandraejhonatas@gmail.com"));
             oMail.IsBodyHtml = true;
             oMail.ReplyToList.Add(email);
-            oMail.Subject =string.Format("{0} via site do casamento - [ {1} ]", name, email);
+            oMail.Subject = name + " - via site do casamento " + subject;
             oMail.Body = string.Format("<p>{0}</p>", text) ;
             oMail.SubjectEncoding = System.Text.Encoding.GetEncoding(1252);
             oMail.BodyEncoding = System.Text.Encoding.GetEncoding(1252);

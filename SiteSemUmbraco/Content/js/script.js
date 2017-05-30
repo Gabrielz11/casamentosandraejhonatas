@@ -485,6 +485,7 @@
                 PNotify.removeAll();
                 $("#loader").show();
                 $("#btnEnviar").hide();
+                data.subject='entrou em contato';
                 $.ajax({
                     type: "POST",
                     url: "/home/contact",
@@ -751,6 +752,7 @@
                                     text: 'Sim',
                                     click: function(notice)
                                     {
+                                        console.log(currentUser);
                                         if(writeGiftData(currentUser,gift))
                                         {
                                             notice.remove();
@@ -760,6 +762,16 @@
                                                 text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
                                                 type: 'success',
                                                 icon: 'glyphicon glyphicon-gift'
+                                            });
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/home/contact",
+                                                data: {
+                                                    name: currentUser.displayName,
+                                                    email: currentUser.email,
+                                                    text: currentUser.displayName + " acabou de dizer que vai nos dar: "+gift.name,
+                                                    subject: "acabou de nos dar um presente"
+                                                },
                                             });
                                         }
                                     }

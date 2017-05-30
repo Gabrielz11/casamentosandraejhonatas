@@ -131,6 +131,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\flaticon.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\images\lojas-bg.jpg" />
     <Content Include="Scripts\InitFirebase.js" />
     <Content Include="Content\css\jquery.fancybox.min.css" />
     <Content Include="Content\css\owl.carousel.css" />
