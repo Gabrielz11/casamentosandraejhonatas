@@ -511,7 +511,7 @@
     <Content Include="Views\Shared\partial\_gallery.cshtml" />
     <Content Include="Views\Shared\partial\_recadosModal.cshtml" />
     <Content Include="Views\Shared\partial\_giftregistry.cshtml" />
-    <Content Include="Views\Shared\partial\_presentes.cshtml" />
+    <Content Include="Views\Shared\partial\_doarComPagseguro.cshtml" />
     <Content Include="Views\Shared\partial\_footer.cshtml" />
     <Content Include="Views\Presentes\Index.cshtml" />
     <Content Include="Views\Home\temp.cshtml" />
