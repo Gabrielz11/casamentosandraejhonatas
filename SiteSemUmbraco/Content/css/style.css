@@ -3198,3 +3198,24 @@ a.gift:link {
 .couple .bride{
     margin-bottom: 80px;
 }
+
+#peopleConfirmedlist {
+    text-align: center;
+}
+
+.peopleConfirmed {
+
+}
+
+.peopleConfirmedImg {
+
+}
+
+.peopleConfirmedTitle {
+    left: 0;
+    right: 0;
+    display: block;
+    font-size: 12px;
+}
+
+

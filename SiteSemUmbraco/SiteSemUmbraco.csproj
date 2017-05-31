@@ -516,6 +516,7 @@
     <Content Include="Views\Presentes\Index.cshtml" />
     <Content Include="Views\Home\temp.cshtml" />
     <Content Include="Views\Shared\partial\_loginModal.cshtml" />
+    <Content Include="Views\Shared\partial\_confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

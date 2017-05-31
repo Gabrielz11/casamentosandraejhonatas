@@ -558,11 +558,13 @@
     });
 
 
-    /*==========================================================================
-    Gifts and Firebase - Home
-    ==========================================================================*/
+
     var initApp=function()
     {
+
+        /*==========================================================================
+        Gifts and Firebase - Home
+        ==========================================================================*/
         var initTranslate=function()
         {
             setTimeout(function()
@@ -635,14 +637,14 @@
             console.log(error);
         });
 
-        var database=firebase.database();
+
         var giftRef=firebase.database().ref('gift/');
         giftRef.on('value',function(snapshot)
         {
             let list=_.sortBy(snapshot.val(),'name');
             $.each(list,function(key,value)
             {
-                toggleLine(value);
+                toggleGiftLine(value);
                 if(key>=list.length-1)
                 {
                     $('.gift').unbind("click");
@@ -656,16 +658,14 @@
                         }
                         else
                         {
-                            $('#myLoginModal').data("gift",$(this).data('gift'));
-                            $('#myLoginModal').data("reason","donateGift");
-                            $('#myLoginModal').modal('show');
+                            showLoginModal('donateGift',$(this).data('gift'))
                         }
                     });
                 }
             });
         });
 
-        function toggleLine(gift)
+        function toggleGiftLine(gift)
         {
             var element=$("#"+gift.key).prop('id');
             if(!element)
@@ -683,33 +683,6 @@
                 }
             }
         }
-
-        $('.btnSair').unbind("click");
-        $('.btnSair').click(function()
-        {
-            var currentUser=firebase.auth().currentUser;
-            if(currentUser)
-            {
-                var provider=firebase.auth().signOut().then(function(user)
-                {
-                    location.reload();
-                });
-            }
-        });
-
-        $('#myLoginModal').unbind("hidden.bs.modal");
-        $('#myLoginModal').on('hidden.bs.modal',function(event)
-        {
-            switch($(this).data('reason'))
-            {
-                case 'donateGift':
-                    donateGiftAndThanks($(this).data('gift'))
-                    break;
-                case 'confirmPresence':
-                    break;
-                default:
-            }
-        })
 
         function donateGiftAndThanks(gift)
         {
@@ -730,13 +703,12 @@
                 }
                 else
                 {
-                    console.log(gift);
                     if(gift.godfatherName&&gift.godfatherName!=currentUser.displayName)
                     {
                         new PNotify({
                             title: 'Que pena '+currentUser.displayName+'!',
                             type: 'error',
-                            text: 'Nós já ganhamos este presente de um outro amigo. Mas você pode escolher outro pra nos dar!',
+                            text: 'Nós já ganhamos este presente de um outro amigo. Mas você pode escolher qualquer outro presente da lista pra nos dar! Menos os que estão marcados de verde. Ok?',
                             icon: 'glyphicon glyphicon-gift'
                         });
                     }
@@ -769,7 +741,7 @@
                                                 data: {
                                                     name: currentUser.displayName,
                                                     email: currentUser.email,
-                                                    text: currentUser.displayName + " acabou de dizer que vai nos dar: "+gift.name,
+                                                    text: currentUser.displayName+" acabou de dizer que vai nos dar: "+gift.name,
                                                     subject: "acabou de nos dar um presente"
                                                 },
                                             });
@@ -815,6 +787,210 @@
                 return true;
             }
         }
+
+
+        $('.btnSair').unbind("click");
+        $('.btnSair').click(function()
+        {
+            var currentUser=firebase.auth().currentUser;
+            if(currentUser)
+            {
+                var provider=firebase.auth().signOut().then(function(user)
+                {
+                    location.reload();
+                });
+            }
+        });
+
+
+
+        /*==========================================================================
+        Presence Confirmation - Home
+        ==========================================================================*/
+
+        $('.confirmationLink').unbind("click");
+        $('.confirmationLink').click(function()
+        {
+            var currentUser=firebase.auth().currentUser;
+            if(currentUser)
+            {
+                confirmPresenceAndThanks(currentUser);
+            }
+            else
+            {
+                showLoginModal('confirmPresence','')
+            }
+        });
+
+        var peopleConfirmed=firebase.database().ref('peopleConfirmed/');
+        peopleConfirmed.on('value',function(snapshot)
+        {
+            let list=_.sortBy(snapshot.val(),'name');
+            $.each(list,function(key,value)
+            {
+                togglepeopleConfirmedLine(value);
+            });
+        });
+
+        function togglepeopleConfirmedLine(confirmedPeople)
+        {
+            var element=$("#"+confirmedPeople.key).prop('id');
+            if(!element)
+            {
+                $('#peopleConfirmedlist').append('<div id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" class="peopleConfirmed"><img class="peopleConfirmedImg img-thumbnail" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div>');
+            }
+        }
+
+        function writeconfirmedPeopleData(confirmedPeople)
+        {
+            if(confirmedPeople)
+            {
+                var newPostKey=firebase.database().ref().child('peopleConfirmed').push().key;
+                var postData={
+                    uid: confirmedPeople.uid,
+                    key: newPostKey,
+                    displayName: confirmedPeople.displayName,
+                    email: confirmedPeople.email,
+                    photoURL: confirmedPeople.photoURL
+                };
+
+                var peopleConfirmedupdates={};
+                peopleConfirmedupdates['peopleConfirmed/'+newPostKey]=postData;
+                var result=firebase.database().ref().update(peopleConfirmedupdates);
+                return true;
+            }
+        }
+
+        function confirmPresenceAndThanks(confirmedPeople)
+        {
+            var oldConfirmedPeople=$('#'+confirmedPeople.uid);
+            if(!oldConfirmedPeople.length)
+            {
+                PNotify.removeAll();
+                new PNotify({
+                    title: 'Obaa!',
+                    text: 'Podemos contar com a sua presença então <b>'+confirmedPeople.displayName+'</b>?',
+                    icon: 'glyphicon glyphicon-question-sign',
+                    confirm: {
+                        confirm: true,
+                        buttons: [{
+                            text: 'Sim eu vou!',
+                            click: function(notice)
+                            {
+                                if(writeconfirmedPeopleData(confirmedPeople))
+                                {
+                                    notice.remove();
+                                    Welcome(confirmedPeople);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/home/contact",
+                                        data: {
+                                            name: confirmedPeople.displayName,
+                                            email: confirmedPeople.email,
+                                            text: confirmedPeople.displayName+" acabou de confirmar presença!",
+                                            subject: "acabou de confirmar presença"
+                                        },
+                                    });
+                                }
+                            }
+                        },{
+                            text: 'Não',
+                            click: function(notice)
+                            {
+                                notice.remove();
+                                notGo(oldConfirmedPeople);
+                            }
+                        }]
+                    },
+                    buttons: {
+                        closer: false,
+                        sticker: false
+                    },
+                    history: {
+                        history: false
+                    }
+                });
+            }
+            else
+            {
+                PNotify.removeAll();
+                new PNotify({
+                    title: 'Ué!',
+                    text: 'Você já tinha confirmado presença antes <b>'+confirmedPeople.displayName+'</b>! Você não vai mais poder ir?',
+                    confirm: {
+                        confirm: true,
+                        buttons: [{
+                            text: 'Sim eu vou!',
+                            click: function(notice)
+                            {
+                                notice.remove();
+                                Welcome(confirmedPeople);
+                            }
+                        },{
+                            text: 'Não, não poderei ir',
+                            click: function(notice)
+                            {
+                                notice.remove();
+                                notGo(oldConfirmedPeople);
+                            }
+                        }]
+                    },
+                    buttons: {
+                        closer: false,
+                        sticker: false
+                    },
+                    history: {
+                        history: false
+                    }
+                });
+            }
+        }
+
+        function Welcome(confirmedPeople)
+        {
+            new PNotify({
+                title: 'Que legal!',
+                text: 'Estamos anciosos por tirar uma foto ao seu lado e curtir a festa com você <b>'+confirmedPeople.displayName+'</b>. Nos vemos lá!',
+                type: 'success',
+            });
+        }
+
+        function notGo(oldConfirmedPeople)
+        {
+            new PNotify({
+                title: 'Que pena!',
+                type: 'info',
+                text: 'Se possível, nos mande um e-mail ou nos ligue pra termos certeza que você não vai',
+                icon: 'glyphicon glyphicon-envelope'
+            });
+            console.log($(oldConfirmedPeople).data('key'));
+            $(oldConfirmedPeople).fadeOut();
+            setTimeout(function() { $(oldConfirmedPeople).remove() },2000);
+            firebase.database().ref('peopleConfirmed/'+$(oldConfirmedPeople).data('key')).remove();
+        }
+
+        function showLoginModal(reason,dataValue)
+        {
+            $('#myLoginModal').data('obj',dataValue);
+            $('#myLoginModal').data("reason",reason);
+            $('#myLoginModal').modal('show');
+        }
+
+        $('#myLoginModal').unbind("hidden.bs.modal");
+        $('#myLoginModal').on('hidden.bs.modal',function(event)
+        {
+            switch($(this).data('reason'))
+            {
+                case 'donateGift':
+                    donateGiftAndThanks($(this).data('obj'));
+                    break;
+                case 'confirmPresence':
+                    var currentUser=firebase.auth().currentUser;
+                    confirmPresenceAndThanks(currentUser);
+                    break;
+                default:
+            }
+        });
     };
 
     window.addEventListener('load',function()
