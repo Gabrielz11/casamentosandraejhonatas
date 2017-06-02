@@ -323,12 +323,15 @@
     /*------------------------------------------
         = ACTIVE BQUOTE SLIDER
     -------------------------------------------*/
-    if($(".bquotes-slider").length)
+    if($(".passagens").length)
     {
-        $(".bquotes-slider").owlCarousel({
+        $(".passagens").owlCarousel({
             items: 1,
             loop: true,
             navText: "",
+            autoplay: true,
+            mouseDrag: true,
+            smartSpeed:800
         });
     }
 
