@@ -5,6 +5,9 @@
     /*------------------------------------------
         = FUNCTIONS
     -------------------------------------------*/
+
+    var stack_modal={ "dir1": "down","dir2": "right","push": "top","modal": true,"overlay_close": true };
+
     // Check ie and version
     function isIE()
     {
@@ -415,7 +418,7 @@
 
     /*------------------------------------------
         = GOOGLE MAP
-    -------------------------------------------*/
+    -------------------------------------------
     function map()
     {
 
@@ -647,19 +650,66 @@
                 toggleGiftLine(value);
                 if(key>=list.length-1)
                 {
+
                     $('.gift').unbind("click");
                     $('.gift').click(function()
                     {
                         var gift=$(this).data('gift');
                         var currentUser=firebase.auth().currentUser;
-                        if(currentUser)
+                        if(gift&&currentUser&&currentUser.displayName)
                         {
-                            donateGiftAndThanks(gift);
+                            if(gift.godfatherName==currentUser.displayName)
+                            {
+                                donateGiftAndThanks(gift);
+                                return
+                            }
                         }
-                        else
-                        {
-                            showLoginModal('donateGift',$(this).data('gift'))
-                        }
+
+                        new PNotify({
+                            title: gift.name,
+                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img src="'+gift.image+'" /></div>',
+                            icon: 'glyphicon glyphicon-question-sign',
+                            addclass: "stack-modal",
+                            stack: stack_modal,
+                            hide:false,
+                            confirm: {
+                                confirm: true,
+                                buttons: [{
+                                    text: 'Sim',
+                                    click: function(notice)
+                                    {
+                                        var currentUser=firebase.auth().currentUser;
+                                        if(currentUser)
+                                        {
+                                            donateGiftAndThanks(gift);
+                                        }
+                                        else
+                                        {
+                                            showLoginModal('donateGift',gift)
+                                        }
+                                    }
+                                },{
+                                    text: 'Não',
+                                    click: function(notice)
+                                    {
+                                        notice.remove();
+                                        new PNotify({
+                                            title: 'Tudo bem!',
+                                            type: 'info',
+                                            text: 'Você pode escolher um outro presente se quiser...',
+                                            icon: 'glyphicon glyphicon-gift'
+                                        });
+                                    }
+                                }]
+                            },
+                            buttons: {
+                                closer: false,
+                                sticker: false
+                            },
+                            history: {
+                                history: false
+                            }
+                        });
                     });
                 }
             });
@@ -675,7 +725,15 @@
                 $(a).data('gift',gift);
                 if(gift.godfatherName&&gift.godfatherName.length>3)
                 {
-                    $(a).addClass('giftwithgodfather');
+                    var currentUser=firebase.auth().currentUser;
+                    if(currentUser && gift.godfatherName==currentUser.displayName)
+                    {
+                        $(a).addClass('giftOfCurrentgodfather');
+                    }
+                    else
+                    {
+                        $(a).addClass('giftwithgodfather');
+                    }
                 }
                 else
                 {
@@ -714,61 +772,26 @@
                     }
                     else
                     {
-                        new PNotify({
-                            title: 'Sério mesmo?',
-                            text: 'Você quer nos dar o presente <b>'+gift.name+'</b>?',
-                            icon: 'glyphicon glyphicon-question-sign',
-                            confirm: {
-                                confirm: true,
-                                buttons: [{
-                                    text: 'Sim',
-                                    click: function(notice)
-                                    {
-                                        console.log(currentUser);
-                                        if(writeGiftData(currentUser,gift))
-                                        {
-                                            notice.remove();
-                                            $('#'+gift.key).addClass('giftwithgodfather');
-                                            new PNotify({
-                                                title: 'Que legal!',
-                                                text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
-                                                type: 'success',
-                                                icon: 'glyphicon glyphicon-gift'
-                                            });
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/home/contact",
-                                                data: {
-                                                    name: currentUser.displayName,
-                                                    email: currentUser.email,
-                                                    text: currentUser.displayName+" acabou de dizer que vai nos dar: "+gift.name,
-                                                    subject: "acabou de nos dar um presente"
-                                                },
-                                            });
-                                        }
-                                    }
-                                },{
-                                    text: 'Não',
-                                    click: function(notice)
-                                    {
-                                        notice.remove();
-                                        new PNotify({
-                                            title: 'Tudo bem!',
-                                            type: 'info',
-                                            text: 'Você pode escolher um outro presente se quiser...',
-                                            icon: 'glyphicon glyphicon-gift'
-                                        });
-                                    }
-                                }]
-                            },
-                            buttons: {
-                                closer: false,
-                                sticker: false
-                            },
-                            history: {
-                                history: false
-                            }
-                        });
+                        if(writeGiftData(currentUser,gift))
+                        {
+                            $('#'+gift.key).addClass('giftwithgodfather');
+                            new PNotify({
+                                title: 'Que legal!',
+                                text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
+                                type: 'success',
+                                icon: 'glyphicon glyphicon-gift'
+                            });
+                            $.ajax({
+                                type: "POST",
+                                url: "/home/contact",
+                                data: {
+                                    name: currentUser.displayName,
+                                    email: currentUser.email,
+                                    text: currentUser.displayName+" acabou de dizer que vai nos dar: "+gift.name,
+                                    subject: "acabou de nos dar um presente"
+                                },
+                            });
+                        }
                     }
                 }
             }

@@ -3161,7 +3161,7 @@ presentes
     font-weight: 500;
     display: inline-table;
     padding: 5px 15px 5px 15px;
-    background-color: #bfbebd;
+    background-color: #b0a254;
     color: #FFF;
     margin: 5px 5px 5px 5px;
     font-size: 14px;
@@ -3175,7 +3175,23 @@ presentes
     margin-left: -4px;
 }
 
+.giftwithgodfather {
+    color: white;
+    background-color: #85bd24;
+}
 .giftwithgodfather:before {
+    content: "\f00c";
+    font-family: FontAwesome;
+    margin-right: 8px;
+    margin-left: -4px;
+}
+
+.giftOfCurrentgodfather {
+    color: white;
+    background-color: #921515;
+}
+
+.giftOfCurrentgodfather:before {
     content: "\f00c";
     font-family: FontAwesome;
     margin-right: 8px;
@@ -3190,10 +3206,7 @@ a.gift:link {
     text-decoration: none;
 }
 
-.giftwithgodfather {
-    color: white;
-    background-color: #85bd24;
-}
+
 
 .couple .bride{
     margin-bottom: 80px;

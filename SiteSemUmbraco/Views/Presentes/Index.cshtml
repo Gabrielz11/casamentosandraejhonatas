@@ -20,6 +20,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-gift fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="image" id="image" placeholder="Link da Imagem" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group ">
                     <button type="submit" id="btnCadastrar" class="btn btn-default btn-lg btn-block login-button">Cadastrar</button>
                 </div>
@@ -48,7 +56,6 @@
 
         giftRef.on('child_changed',function(snapshot)
         {
-            console.log(snapshot.val());
             var element=$("#"+snapshot.key)
             $(element).parent().find('.content')[0].textContent=snapshot.val().name
         });
@@ -59,6 +66,7 @@
             event.preventDefault();
             writeGiftData()
             $('#name').val('');
+            $('#image').val('');
             return;
         });
 
@@ -66,7 +74,8 @@
         {
             var gift=$('#name').data('gift');
             if(!gift) { gift={};}
-            gift.name=$('#name').val().toUpperCase();
+            gift.name=$('#name').val().toUpperCase().trim();
+            gift.image=$('#image').val();
             if(gift.name.length>0)
             {
                 if(!gift.key)
@@ -96,6 +105,7 @@
             var key=$(row).prop('id');
             $('#name').data('gift',$(row).data('gift'));
             $('#name').val($(row).data('gift').name);
+            $('#image').val($(row).data('gift').image);
         }
 
         function remove(row)
