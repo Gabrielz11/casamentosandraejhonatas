@@ -8,6 +8,15 @@
 
     var stack_modal={ "dir1": "down","dir2": "right","push": "top","modal": true,"overlay_close": true };
 
+    function loadImage(image)
+    {
+        console.log($(image).data('src'));
+        var img=new Image();
+        img.onload=function() { console.log(this); }
+        img.src=$(image).data('src');
+    }
+
+
     // Check ie and version
     function isIE()
     {
@@ -506,7 +515,12 @@
                             title: 'Sucesso!',
                             text: 'Sua mensagem foi enviada! Logo logo vamos responder!',
                             type: 'success',
-                            icon: 'glyphicon glyphicon-envelope'
+                            icon: 'glyphicon glyphicon-envelope',
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'hinge'
+                            }
                         });
                     },
                     error: function()
@@ -517,7 +531,12 @@
                             title: 'Ops!',
                             text: 'Ocorreu um erro ao enviar a mensagem.! Tente novamente em alguns instantes.',
                             type: 'error',
-                            icon: 'glyphicon glyphicon-warning-sign'
+                            icon: 'glyphicon glyphicon-warning-sign',
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'hinge'
+                            }
                         });
                     }
                 });
@@ -571,6 +590,8 @@
         /*==========================================================================
         Gifts and Firebase - Home
         ==========================================================================*/
+        var currentUser=firebase.auth().currentUser;
+
         var initTranslate=function()
         {
             setTimeout(function()
@@ -643,7 +664,6 @@
             console.log(error);
         });
 
-
         var giftRef=firebase.database().ref('gift/');
         giftRef.on('value',function(snapshot)
         {
@@ -658,7 +678,7 @@
                     $('.gift').click(function()
                     {
                         var gift=$(this).data('gift');
-                        var currentUser=firebase.auth().currentUser;
+                        currentUser=firebase.auth().currentUser;
                         if(gift&&currentUser&&currentUser.displayName)
                         {
                             if(gift.godfatherName==currentUser.displayName)
@@ -667,21 +687,22 @@
                                 return
                             }
                         }
-
                         new PNotify({
                             title: gift.name,
-                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img src="'+gift.image+'" /></div>',
+                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img style="margin: 30px 0 0 0;" class="img-responsive" src="'+gift.image+'" /></div>',
                             icon: 'glyphicon glyphicon-question-sign',
-                            addclass: "stack-modal",
-                            stack: stack_modal,
-                            hide:false,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'hinge'
+                            },
                             confirm: {
                                 confirm: true,
                                 buttons: [{
                                     text: 'Sim',
                                     click: function(notice)
                                     {
-                                        var currentUser=firebase.auth().currentUser;
+                                        currentUser=firebase.auth().currentUser;
                                         if(currentUser)
                                         {
                                             donateGiftAndThanks(gift);
@@ -696,12 +717,6 @@
                                     click: function(notice)
                                     {
                                         notice.remove();
-                                        new PNotify({
-                                            title: 'Tudo bem!',
-                                            type: 'info',
-                                            text: 'Você pode escolher um outro presente se quiser...',
-                                            icon: 'glyphicon glyphicon-gift'
-                                        });
                                     }
                                 }]
                             },
@@ -728,7 +743,7 @@
                 $(a).data('gift',gift);
                 if(gift.godfatherName&&gift.godfatherName.length>3)
                 {
-                    var currentUser=firebase.auth().currentUser;
+                    
                     if(currentUser && gift.godfatherName==currentUser.displayName)
                     {
                         $(a).addClass('giftOfCurrentgodfather');
@@ -748,19 +763,13 @@
         function donateGiftAndThanks(gift)
         {
             PNotify.removeAll();
-            var currentUser=firebase.auth().currentUser;
+            currentUser=firebase.auth().currentUser;
             if(gift&&currentUser&&currentUser.displayName)
             {
                 if(gift.godfatherName==currentUser.displayName)
                 {
                     $('#'+gift.key).removeClass('giftwithgodfather');
                     writeGiftData({ displayName: '',email: '' },gift);
-                    new PNotify({
-                        title: 'Tudo bem!',
-                        type: 'info',
-                        text: 'Você pode escolher um outro presente se quiser...',
-                        icon: 'glyphicon glyphicon-gift'
-                    });
                 }
                 else
                 {
@@ -770,7 +779,12 @@
                             title: 'Que pena '+currentUser.displayName+'!',
                             type: 'error',
                             text: 'Nós já ganhamos este presente de um outro amigo. Mas você pode escolher qualquer outro presente da lista pra nos dar! Menos os que estão marcados de verde. Ok?',
-                            icon: 'glyphicon glyphicon-gift'
+                            icon: 'glyphicon glyphicon-gift',
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'hinge'
+                            }
                         });
                     }
                     else
@@ -782,7 +796,12 @@
                                 title: 'Que legal!',
                                 text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
                                 type: 'success',
-                                icon: 'glyphicon glyphicon-gift'
+                                icon: 'glyphicon glyphicon-gift',
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'hinge'
+                                }
                             });
                             $.ajax({
                                 type: "POST",
@@ -818,7 +837,7 @@
         $('.btnSair').unbind("click");
         $('.btnSair').click(function()
         {
-            var currentUser=firebase.auth().currentUser;
+            currentUser=firebase.auth().currentUser;
             if(currentUser)
             {
                 var provider=firebase.auth().signOut().then(function(user)
@@ -828,8 +847,6 @@
             }
         });
 
-
-
         /*==========================================================================
         Presence Confirmation - Home
         ==========================================================================*/
@@ -837,7 +854,7 @@
         $('.confirmationLink').unbind("click");
         $('.confirmationLink').click(function()
         {
-            var currentUser=firebase.auth().currentUser;
+            currentUser=firebase.auth().currentUser;
             if(currentUser)
             {
                 confirmPresenceAndThanks(currentUser);
@@ -897,6 +914,11 @@
                     title: 'Obaa!',
                     text: 'Podemos contar com a sua presença então <b>'+confirmedPeople.displayName+'</b>?',
                     icon: 'glyphicon glyphicon-question-sign',
+                    animate: {
+                        animate: true,
+                        in_class: 'bounceInDown',
+                        out_class: 'hinge'
+                    },
                     confirm: {
                         confirm: true,
                         buttons: [{
@@ -943,6 +965,11 @@
                 new PNotify({
                     title: 'Ué!',
                     text: 'Você já tinha confirmado presença antes <b>'+confirmedPeople.displayName+'</b>! Você não vai mais poder ir?',
+                    animate: {
+                        animate: true,
+                        in_class: 'bounceInDown',
+                        out_class: 'hinge'
+                    },
                     confirm: {
                         confirm: true,
                         buttons: [{
@@ -978,6 +1005,11 @@
                 title: 'Que legal!',
                 text: 'Estamos anciosos por tirar uma foto ao seu lado e curtir a festa com você <b>'+confirmedPeople.displayName+'</b>. Nos vemos lá!',
                 type: 'success',
+                animate: {
+                    animate: true,
+                    in_class: 'bounceInDown',
+                    out_class: 'hinge'
+                }
             });
         }
 
@@ -987,7 +1019,12 @@
                 title: 'Que pena!',
                 type: 'info',
                 text: 'Se possível, nos mande um e-mail ou nos ligue pra termos certeza que você não vai',
-                icon: 'glyphicon glyphicon-envelope'
+                icon: 'glyphicon glyphicon-envelope',
+                animate: {
+                    animate: true,
+                    in_class: 'bounceInDown',
+                    out_class: 'hinge'
+                }
             });
             console.log($(oldConfirmedPeople).data('key'));
             $(oldConfirmedPeople).fadeOut();
@@ -1011,7 +1048,7 @@
                     donateGiftAndThanks($(this).data('obj'));
                     break;
                 case 'confirmPresence':
-                    var currentUser=firebase.auth().currentUser;
+                    currentUser=firebase.auth().currentUser;
                     confirmPresenceAndThanks(currentUser);
                     break;
                 default:
