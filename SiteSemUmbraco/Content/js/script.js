@@ -434,48 +434,6 @@
     });
 
     /*------------------------------------------
-        = GOOGLE MAP
-    -------------------------------------------
-    function map()
-    {
-
-        var locations=[
-            ['Sitio Sfalcin - TO-020 KM 16 NA ESTRADA PARA APARECIDA DO RIO NEGRO',-10.230111,-48.180111]
-        ];
-
-        var map=new google.maps.Map(document.getElementById('map'),{
-            center: new google.maps.LatLng(-10.230111,-48.180111),
-            zoom: 10,
-            scrollwheel: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-
-        });
-
-        var infowindow=new google.maps.InfoWindow();
-
-        var marker,i;
-
-        for(i=0;i<locations.length;i++)
-        {
-            marker=new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1],locations[i][2]),
-                map: map,
-                icon: '/Content/images/map-marker.png'
-            });
-
-            google.maps.event.addListener(marker,'click',(function(marker,i)
-            {
-                return function()
-                {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map,marker);
-                }
-            })(marker,i));
-        }
-    };
-
-
-    /*------------------------------------------
         = RSVP FORM SUBMISSION
     -------------------------------------------*/
     if($("#rsvp-form").length)

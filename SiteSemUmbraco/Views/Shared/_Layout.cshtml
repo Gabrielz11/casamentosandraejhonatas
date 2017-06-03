@@ -10,6 +10,8 @@
     <meta name="description" content="Sweetheart - Responsive Wedding Template">
     <meta name="keywords" content="wedding,events,ceremony,couple,pear,love">
     <meta name="author" content="Jhonatas Lima">
+    <meta property="fb:app_id" content="425943947783458" />
+    <meta property="fb:admins" content="jhlmota" />
 
     <!-- Page Title -->
     <title> Casamento Sandra & Jhonatas </title>
@@ -39,6 +41,16 @@
 </head>
 <body id="home">
     <div class="page-wrapper">
+        <div id="fb-root"></div>
+        <script>
+            (function(d,s,id)
+            {
+                var js,fjs=d.getElementsByTagName(s)[0];
+                if(d.getElementById(id)) return;
+                js=d.createElement(s); js.id=id;
+                js.src="//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.9&appId=425943947783458";
+                fjs.parentNode.insertBefore(js,fjs);
+            }(document,'script','facebook-jssdk'));</script>
         @RenderBody()
     </div>
 
