@@ -650,9 +650,10 @@
                                 return
                             }
                         }
+                        PNotify.removeAll();
                         new PNotify({
                             title: gift.name,
-                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img style="margin: 30px 0 0 0;" class="img-responsive" src="'+gift.image+'" /></div>',
+                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img style="margin: 30px 0 0 0; min-width: 260px;" class="img-responsive" src="'+gift.image+'" /></div>',
                             icon: 'glyphicon glyphicon-question-sign',
                             animate: {
                                 animate: true,
@@ -776,7 +777,7 @@
                     {
                         if(writeGiftData(currentUser,gift))
                         {
-                            $('#'+gift.key).addClass('giftwithgodfather');
+                            $('#'+gift.key).addClass('giftOfCurrentgodfather');
                             new PNotify({
                                 title: 'Que legal!',
                                 text: 'Acabamos de anotar que vamos ganhar o presente <b>'+gift.name+'</b> de você '+currentUser.displayName+'. Muito obrigado por nos presentear!',
@@ -865,7 +866,11 @@
             var element=$("#"+confirmedPeople.key).prop('id');
             if(!element)
             {
-                $('#peopleConfirmedlist').append('<div id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" class="peopleConfirmed"><img class="peopleConfirmedImg img-thumbnail" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div>');
+                var i=0;
+                for(i=0;i<5;i++)
+                {
+                    $('#peopleConfirmedlist').append('<div class="peopleConfirmed"><div class="pcCont"> <img class="img-responsive img-thumbnail " id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div></div>');
+                }
             }
         }
 

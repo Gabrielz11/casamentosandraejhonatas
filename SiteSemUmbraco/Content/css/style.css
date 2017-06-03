@@ -2208,7 +2208,8 @@ footer .copyright {
 }
 
 .padrinhos h4 {
-    color: white;
+    color: #d2c586;
+    text-shadow: 1px 1px #000000;
 }
 
 @media (max-width: 767px) {
@@ -3222,14 +3223,27 @@ a.gift:link {
     margin-bottom: 80px;
 }
 
-#peopleConfirmedlist {
-    text-align: center;
-}
 
 .peopleConfirmed {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.peopleConfirmedImg {
+peopleConfirmed {
+    width: 100%;
+}
+
+.pcCont {
+    background: #bfb163;
+    padding: 5px;
+    height: 142px;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .peopleConfirmedTitle {
@@ -3237,27 +3251,27 @@ a.gift:link {
     right: 0;
     display: block;
     font-size: 12px;
+    margin-top:5px;
 }
 
 
 
 .owl-theme .owl-nav {
-
     margin-top: 10px;
     text-align: center;
     -webkit-tap-highlight-color: transparent;
 }
 
-.owl-theme .owl-nav .disabled {
-    opacity: .5;
-    cursor: default;
-}
+    .owl-theme .owl-nav .disabled {
+        opacity: .5;
+        cursor: default;
+    }
 
 .owl-theme .owl-dots .owl-dot {
     display: inline-block;
     zoom: 1;
     *display: inline;
-        cursor:pointer;
+    cursor: pointer;
 }
 
     .owl-theme .owl-dots .owl-dot span {
@@ -3282,15 +3296,14 @@ FAQ
 
 .faq .question {
     font-size: 26px;
-    margin-bottom:10px;
-    font-weight:700;
-    color:#b1a256;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #b1a256;
 }
 
 .faq .answear {
     font-size: 18px;
-    margin-bottom:10px;
-    color:#000;
-    margin-left:20px;
+    margin-bottom: 10px;
+    color: #000;
+    margin-left: 20px;
 }
-
