@@ -47,6 +47,11 @@ ul {
     margin: 0;
 }
 
+a:focus, a:hover {
+    color: #0b0935;
+    text-decoration: none;
+}
+
 /*--------------------------------------------------------------
 #0.2    Global Elements
 --------------------------------------------------------------*/
@@ -2202,6 +2207,10 @@ footer .copyright {
     color: white;
 }
 
+.padrinhos h4 {
+    color: white;
+}
+
 @media (max-width: 767px) {
     .paisDosNoivos {
         padding: 70px 0 60px;
@@ -3189,7 +3198,7 @@ presentes
 
 .giftOfCurrentgodfather {
     color: white;
-    background-color: #921515;
+    background-color: #ca2424;
 }
 
     .giftOfCurrentgodfather:before {

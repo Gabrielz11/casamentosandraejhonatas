@@ -356,7 +356,9 @@
             nav: true,
             navText: ['<i class="fa fa-long-arrow-left"></i>','<i class="fa fa-long-arrow-right"></i>'],
             dots: false,
-            mouseDrag: false
+            autoplay: true,
+            mouseDrag: false,
+            smartSpeed: 1200
         });
     }
 
@@ -372,7 +374,10 @@
             nav: true,
             navText: ['<i class="fa fa-long-arrow-left"></i>','<i class="fa fa-long-arrow-right"></i>'],
             dots: false,
-            mouseDrag: false
+            autoplay: true,
+            mouseDrag: false,
+            smartSpeed: 1200,
+            autoplayTimeout:6000
         });
     }
 
@@ -743,7 +748,7 @@
                 $(a).data('gift',gift);
                 if(gift.godfatherName&&gift.godfatherName.length>3)
                 {
-                    
+                    currentUser=firebase.auth().currentUser;
                     if(currentUser && gift.godfatherName==currentUser.displayName)
                     {
                         $(a).addClass('giftOfCurrentgodfather');
@@ -768,8 +773,30 @@
             {
                 if(gift.godfatherName==currentUser.displayName)
                 {
+                    $('#'+gift.key).removeClass('giftOfCurrentgodfather');
                     $('#'+gift.key).removeClass('giftwithgodfather');
                     writeGiftData({ displayName: '',email: '' },gift);
+                    new PNotify({
+                        title: 'Tudo bem '+currentUser.displayName+'!',
+                        type: 'info',
+                        text: 'Você pode escolher outro se quiser...',
+                        icon: 'glyphicon glyphicon-gift',
+                        animate: {
+                            animate: true,
+                            in_class: 'bounceInDown',
+                            out_class: 'hinge'
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "/home/contact",
+                        data: {
+                            name: currentUser.displayName,
+                            email: currentUser.email,
+                            text: currentUser.displayName+" acabou de cancelar o presente: "+gift.name,
+                            subject: "acabou de cancelar um presente"
+                        },
+                    });
                 }
                 else
                 {

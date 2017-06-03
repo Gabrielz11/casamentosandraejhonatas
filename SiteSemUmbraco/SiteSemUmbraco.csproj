@@ -518,6 +518,8 @@
     <Content Include="Views\Home\temp.cshtml" />
     <Content Include="Views\Shared\partial\_loginModal.cshtml" />
     <Content Include="Views\Shared\partial\_confirmation.cshtml" />
+    <Content Include="Views\Shared\partial\_faq.cshtml" />
+    <Content Include="Views\Shared\partial\_comentarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
