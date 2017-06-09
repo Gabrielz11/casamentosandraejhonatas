@@ -428,11 +428,26 @@
     /*------------------------------------------
         = sfalcin galery Event
     -------------------------------------------*/
-    $('.sfalcin-grid').masonry({
-        itemSelector: '.sfalcin-grid',
-        columnWidth: '.sfalcin-grid'
-    });
 
+    $(".sfalcin-grid.owl-carousel").owlCarousel({
+        loop: true,
+        margin: 10,
+        center: true,
+        dots: false,
+        navText: '',
+        mouseDrag: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            700: {
+                items: 3
+            },
+            1000: {
+                items: 2
+            }
+        }
+    });
     /*------------------------------------------
         = RSVP FORM SUBMISSION
     -------------------------------------------*/
@@ -837,6 +852,7 @@
         Presence Confirmation - Home
         ==========================================================================*/
 
+
         $('.confirmationLink').unbind("click");
         $('.confirmationLink').click(function()
         {
@@ -858,6 +874,30 @@
             $.each(list,function(key,value)
             {
                 togglepeopleConfirmedLine(value);
+                if(key>=list.length-1)
+                {
+                    $(".peopleConfirmedList.owl-carousel").owlCarousel({
+                        loop: true,
+                        margin: 10,
+                        center: true,
+                        dots: true,
+                        navText: '',
+                        mouseDrag: true,
+                        smartSpeed:400,
+                        responsiveClass: true,
+                        responsive: {
+                            0: {
+                                items: 4
+                            },
+                            700: {
+                                items: 6
+                            },
+                            1000: {
+                                items: 8
+                            }
+                        }
+                    });
+                }
             });
         });
 
@@ -867,10 +907,7 @@
             if(!element)
             {
                 var i=0;
-                for(i=0;i<5;i++)
-                {
-                    $('#peopleConfirmedlist').append('<div class="peopleConfirmed"><div class="pcCont"> <img class="img-responsive img-thumbnail " id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div></div>');
-                }
+                $('.peopleConfirmedList').append('<div class="item"><img class="img-responsive img-thumbnail " id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div>');
             }
         }
 

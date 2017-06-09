@@ -61,6 +61,7 @@ a:focus, a:hover {
 
 .section-padding {
     padding: 70px 0 70px;
+    word-break: break-all;
 }
 
 @media (max-width: 767px) {
@@ -261,7 +262,7 @@ a:focus, a:hover {
     font-size: 40px;
     line-height: 1em;
     margin: 0;
-    padding: 0.28em 15px 0.3em;
+    padding: 0.28em 0 15px 0;
     position: relative;
     text-transform: capitalize;
 }
@@ -278,35 +279,7 @@ a:focus, a:hover {
     }
 }
 
-.section-title h2:before, .section-title h2:after {
-    content: "";
-    width: 30px;
-    height: 1px;
-    background-color: #1a1a1a !important;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
 
-@media (max-width: 767px) {
-    .section-title h2:before, .section-title h2:after {
-        width: 15px;
-    }
-}
-
-.section-title h2:before {
-    left: -30px;
-}
-
-@media (max-width: 767px) {
-    .section-title h2:before {
-        left: -15px;
-    }
-}
 
 .section-title h2:after {
     right: -30px;
@@ -665,6 +638,11 @@ header {
     /* navigation open and close btn hide for width screen */
     /* style for navigation less than 992px */
     /*navbar collaps less then 992px*/
+}
+
+#header .nav>li>a {
+    padding: 20px 5px 0 5px;
+    font-size: 11px;
 }
 
     header .navigation {
@@ -1532,6 +1510,10 @@ footer .copyright {
     position: relative;
 }
 
+    .couple table tbody tr td {
+        min-width: 108px;
+    }
+
     .couple .container {
         position: relative;
         z-index: 10;
@@ -1644,10 +1626,6 @@ footer .copyright {
 
 .couple .details p {
     margin: 0;
-}
-
-.couple .details .social-links {
-    margin-top: 30px;
 }
 
 .couple .groom {
@@ -2069,24 +2047,6 @@ footer .copyright {
     }
 }
 
-.sfalcin-grid-item {
-    width: 210px;
-    height: 116px;
-    float: left;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    background: #D26;
-    border: 2px solid #f2f0f0;
-}
-
-
-@media (max-width: 450px) {
-    .sfalcin-grid-item {
-        width: 105px;
-        height: 55px;
-        margin-top: 5px;
-    }
-}
 
 /*--------------------------------------------------------------
 #1.0	bquotes
@@ -2182,7 +2142,7 @@ footer .copyright {
 
 
 /*--------------------------------------------------------------
-#0.3	paisDosNoivos
+#	paisDosNoivos
 --------------------------------------------------------------*/
 .paisDosNoivos {
     text-align: center;
@@ -2190,6 +2150,10 @@ footer .copyright {
     padding: 100px 0 90px;
     position: relative;
 }
+
+    .paisDosNoivos img {
+        height: 250px;
+    }
 
     .paisDosNoivos::after {
         background: url("../images/pais-bg.jpg") center center/cover no-repeat fixed;
@@ -2203,6 +2167,9 @@ footer .copyright {
         z-index: -1;
     }
 
+/*--------------------------------------------------------------
+#	Padrinhos
+--------------------------------------------------------------*/
 .TituloPadrinhos {
     color: white;
 }
@@ -2520,7 +2487,7 @@ footer .copyright {
 @media (max-width: 767px) {
     .padrinhos .groomsmen .owl-nav, .padrinhos .bridesmaids .owl-nav {
         position: absolute;
-        top: -32px;
+        top: -63px;
     }
 
     .padrinhos .bridesmaids .owl-nav {
@@ -3085,6 +3052,11 @@ pequeninos
     text-align: center;
 }
 
+.bridesmaids-slider .col {
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
 @media (max-width: 767px) {
     .pequeninos h4 {
         font-size: 12px;
@@ -3224,38 +3196,6 @@ a.gift:link {
 }
 
 
-.peopleConfirmed {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-peopleConfirmed {
-    width: 100%;
-}
-
-.pcCont {
-    background: #bfb163;
-    padding: 5px;
-    height: 142px;
-    margin: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.peopleConfirmedTitle {
-    left: 0;
-    right: 0;
-    display: block;
-    font-size: 12px;
-    margin-top:5px;
-}
-
-
-
 .owl-theme .owl-nav {
     margin-top: 10px;
     text-align: center;
@@ -3295,15 +3235,33 @@ FAQ
 --------------------------------------------------------------*/
 
 .faq .question {
-    font-size: 26px;
+    font-size: 20px;
     margin-bottom: 10px;
     font-weight: 700;
     color: #b1a256;
 }
 
 .faq .answear {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 10px;
     color: #000;
     margin-left: 20px;
+}
+
+/*--------------------------------------------------------------
+People Confirmed
+--------------------------------------------------------------*/
+
+.peopleConfirmedList {
+    margin: 50px 0 0 0;
+}
+
+    .peopleConfirmedList .owl-dots {
+        text-align: center;
+    }
+
+.peopleConfirmedTitle {
+    display: block;
+    text-align: center;
+    font-size: 13px;
 }
