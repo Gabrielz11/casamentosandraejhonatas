@@ -61,7 +61,6 @@ a:focus, a:hover {
 
 .section-padding {
     padding: 70px 0 70px;
-    word-break: break-all;
 }
 
 @media (max-width: 767px) {
@@ -640,62 +639,69 @@ header {
     /*navbar collaps less then 992px*/
 }
 
-#header .nav>li>a {
-    padding: 20px 5px 0 5px;
-    font-size: 11px;
+#header .nav > li > a {
+    padding: 20px 15px 0 5px;
+    font-size: 14px;
 }
 
-    header .navigation {
-        background-color: #fff;
-        margin-bottom: 0;
-        border: 0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        -o-border-radius: 0;
-        -ms-border-radius: 0;
-        border-radius: 0;
+@media (max-width: 1200px) {
+    #header .nav > li > a {
+        padding: 20px 11px 0 5px;
+        font-size: 13px;
+    }
+}
+
+header .navigation {
+    background-color: #fff;
+    margin-bottom: 0;
+    border: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+    header .navigation .navbar-brand {
+        font-family: "Great Vibes", cursive;
+        font-size: 30px;
+        color: #2a2a2a;
+        line-height: 60px;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
-        header .navigation .navbar-brand {
-            font-family: "Great Vibes", cursive;
-            font-size: 30px;
+        header .navigation .navbar-brand:hover,
+        header .navigation .navbar-brand:focus {
             color: #2a2a2a;
-            line-height: 60px;
-            padding-top: 0;
-            padding-bottom: 0;
         }
 
-            header .navigation .navbar-brand:hover,
-            header .navigation .navbar-brand:focus {
-                color: #2a2a2a;
-            }
+header #navbar {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+    /** mobiel-menu-logo **/
+    /* show hide drop down menu widther 992px screen */
+}
 
-    header #navbar {
-        -webkit-transition: all 0.5s;
-        -moz-transition: all 0.5s;
-        -o-transition: all 0.5s;
-        -ms-transition: all 0.5s;
-        transition: all 0.5s;
-        /** mobiel-menu-logo **/
-        /* show hide drop down menu widther 992px screen */
+    header #navbar > ul {
+        margin: 0;
     }
 
-        header #navbar > ul {
-            margin: 0;
-        }
+    header #navbar .mobile-menu-logo {
+        font-size: 22px;
+        font-weight: 600;
+        color: #4d4d4d;
+        text-align: center;
+        padding: 30px 0;
+        display: none;
+    }
 
-        header #navbar .mobile-menu-logo {
-            font-size: 22px;
-            font-weight: 600;
-            color: #4d4d4d;
-            text-align: center;
-            padding: 30px 0;
-            display: none;
+        header #navbar .mobile-menu-logo i {
+            color: #aa9a45;
         }
-
-            header #navbar .mobile-menu-logo i {
-                color: #aa9a45;
-            }
 
 @media (max-width: 991px) {
     header #navbar .mobile-menu-logo {
@@ -1510,18 +1516,28 @@ footer .copyright {
     position: relative;
 }
 
-    .couple table tbody tr td {
-        min-width: 108px;
+    .couple .pic img {
+        max-width: 87%;
     }
 
-    .couple .container {
-        position: relative;
-        z-index: 10;
+@media (max-width: 991px) {
+    .couple .pic img {
+        max-width: 100%;
     }
+}
 
-    .couple .pic {
-        position: relative;
-    }
+.couple table tbody tr td {
+    min-width: 108px;
+}
+
+.couple .container {
+    position: relative;
+    z-index: 10;
+}
+
+.couple .pic {
+    position: relative;
+}
 
 @media (max-width: 991px) {
     .couple .pic {
@@ -1529,9 +1545,19 @@ footer .copyright {
     }
 }
 
-.couple .pic:before {
+.couple .groom .pic:before {
     content: "";
-    width: 92%;
+    width: 79%;
+    height: 93%;
+    border: 1px solid #fff;
+    position: absolute;
+    left: 17%;
+    top: 3.5%;
+}
+
+.couple .bride .pic:before {
+    content: "";
+    width: 79%;
     height: 93%;
     border: 1px solid #fff;
     position: absolute;
@@ -1552,7 +1578,7 @@ footer .copyright {
     }
 }
 
-.couple .details > span {
+.couple .details span {
     font-weight: bold;
     color: #c7ba75;
     text-transform: uppercase;
@@ -1610,8 +1636,7 @@ footer .copyright {
 }
 
 .couple .details .table td {
-    padding: 4px 15px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .couple .details .table tr > td:first-child {
@@ -1624,22 +1649,28 @@ footer .copyright {
     padding-left: 15px;
 }
 
+
 .couple .details p {
     margin: 0;
+    text-align: justify;
+}
+
+.couple .bride p {
+    margin-bottom: 70px;
 }
 
 .couple .groom {
     margin-bottom: 20px;
 }
 
+    .couple .groom .pic {
+        text-align: -webkit-right;
+    }
+
 @media (max-width: 767px) {
     .couple .groom {
         margin-bottom: -10px;
     }
-}
-
-.couple .groom .details {
-    padding-left: 40px;
 }
 
 @media (max-width: 991px) {
@@ -1662,12 +1693,6 @@ footer .copyright {
 
 .couple .bride .details .table {
     text-align: left;
-}
-
-@media screen and (min-width: 991px) {
-    .couple .bride .social-links {
-        float: right;
-    }
 }
 
 /*--------------------------------------------------------------
@@ -2147,13 +2172,9 @@ footer .copyright {
 .paisDosNoivos {
     text-align: center;
     color: #fff;
-    padding: 100px 0 90px;
+    padding: 100px 0 0 0;
     position: relative;
 }
-
-    .paisDosNoivos img {
-        height: 250px;
-    }
 
     .paisDosNoivos::after {
         background: url("../images/pais-bg.jpg") center center/cover no-repeat fixed;
@@ -3052,11 +3073,6 @@ pequeninos
     text-align: center;
 }
 
-.bridesmaids-slider .col {
-    padding-right: 3px;
-    padding-left: 3px;
-}
-
 @media (max-width: 767px) {
     .pequeninos h4 {
         font-size: 12px;
@@ -3265,3 +3281,11 @@ People Confirmed
     text-align: center;
     font-size: 13px;
 }
+
+@media (max-width: 767px) {
+    .sfalcin-grid-container {
+        margin-top: 10px;
+    }
+}
+
+

@@ -7,16 +7,6 @@
     -------------------------------------------*/
 
     var stack_modal={ "dir1": "down","dir2": "right","push": "top","modal": true,"overlay_close": true };
-
-    function loadImage(image)
-    {
-        console.log($(image).data('src'));
-        var img=new Image();
-        img.onload=function() { console.log(this); }
-        img.src=$(image).data('src');
-    }
-
-
     // Check ie and version
     function isIE()
     {
@@ -262,7 +252,7 @@
             $(this).addClass("asdf");
         }).on('finish.countdown',function(event)
         {
-            console.log("111111111");
+
         });
 
     }
@@ -876,30 +866,37 @@
                 togglepeopleConfirmedLine(value);
                 if(key>=list.length-1)
                 {
-                    $(".peopleConfirmedList.owl-carousel").owlCarousel({
-                        loop: true,
-                        margin: 10,
-                        center: true,
-                        dots: true,
-                        navText: '',
-                        mouseDrag: true,
-                        smartSpeed:400,
-                        responsiveClass: true,
-                        responsive: {
-                            0: {
-                                items: 4
-                            },
-                            700: {
-                                items: 6
-                            },
-                            1000: {
-                                items: 8
-                            }
-                        }
-                    });
+                    toggleCarousel();
                 }
             });
         });
+
+        function toggleCarousel()
+        {
+            $(".peopleConfirmedList.owl-carousel").owlCarousel('destroy')
+            $(".peopleConfirmedList.owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                center: true,
+                dots: true,
+                navText: '',
+                mouseDrag: true,
+                smartSpeed: 400,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 4
+                    },
+                    700: {
+                        items: 6
+                    },
+                    1000: {
+                        items: 8
+                    }
+                }
+            });
+        }
+
 
         function togglepeopleConfirmedLine(confirmedPeople)
         {
@@ -954,18 +951,19 @@
                             {
                                 if(writeconfirmedPeopleData(confirmedPeople))
                                 {
+                                    toggleCarousel();
                                     notice.remove();
                                     Welcome(confirmedPeople);
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/home/contact",
-                                        data: {
-                                            name: confirmedPeople.displayName,
-                                            email: confirmedPeople.email,
-                                            text: confirmedPeople.displayName+" acabou de confirmar presença!",
-                                            subject: "acabou de confirmar presença"
-                                        },
-                                    });
+                                    //$.ajax({
+                                    //    type: "POST",
+                                    //    url: "/home/contact",
+                                    //    data: {
+                                    //        name: confirmedPeople.displayName,
+                                    //        email: confirmedPeople.email,
+                                    //        text: confirmedPeople.displayName+" acabou de confirmar presença!",
+                                    //        subject: "acabou de confirmar presença"
+                                    //    },
+                                    //});
                                 }
                             }
                         },{
@@ -1042,6 +1040,7 @@
 
         function notGo(oldConfirmedPeople)
         {
+            toggleCarousel();
             new PNotify({
                 title: 'Que pena!',
                 type: 'info',
@@ -1053,7 +1052,6 @@
                     out_class: 'hinge'
                 }
             });
-            console.log($(oldConfirmedPeople).data('key'));
             $(oldConfirmedPeople).fadeOut();
             setTimeout(function() { $(oldConfirmedPeople).remove() },2000);
             firebase.database().ref('peopleConfirmed/'+$(oldConfirmedPeople).data('key')).remove();
