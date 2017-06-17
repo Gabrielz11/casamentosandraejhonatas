@@ -257,6 +257,7 @@
 
     }
 
+
     /*------------------------------------------
         = THE WEDDING
     -------------------------------------------*/
@@ -334,6 +335,22 @@
         });
     }
 
+    /*------------------------------------------
+    = COUPLE
+    -------------------------------------------*/
+
+    $(".couple .pic.owl-carousel").owlCarousel({
+        autoplay: true,
+        loop: true,
+        dots: false,
+        navText: '',
+        mouseDrag: true,
+        items: 1,
+        animateIn: 'fadeIn',
+        animateOut: 'fadeOut',
+        autoplayTimeout: 6000,
+        smartSpeed: 400
+    });
 
     /*------------------------------------------
         = ACTIVE GROOMSMEN SLIDER
@@ -438,9 +455,16 @@
             }
         }
     });
+
     /*------------------------------------------
-        = RSVP FORM SUBMISSION
+        recados
     -------------------------------------------*/
+
+
+    $('.recadosModal').click(function() {
+        $('#myModal').modal('toggle');
+    });
+
     if($("#rsvp-form").length)
     {
         $("#rsvp-form").validate({
@@ -464,15 +488,15 @@
 
             submitHandler: function(form)
             {
-                var data=$(form).serialize();
+                $('#subject').val('entrou em contato');
+                var formdata=$(form).serialize();
                 PNotify.removeAll();
                 $("#loader").show();
                 $("#btnEnviar").hide();
-                data.subject='entrou em contato';
                 $.ajax({
                     type: "POST",
                     url: "/home/contact",
-                    data: data,
+                    data: formdata,
                     success: function()
                     {
                         $("#loader").hide();
@@ -513,7 +537,6 @@
 
         });
     }
-
 
     /*==========================================================================
         WHEN DOCUMENT LOADING 
@@ -658,7 +681,7 @@
                         PNotify.removeAll();
                         new PNotify({
                             title: gift.name,
-                            text: 'Você quer nos dar o presente? <br><div style="text-aling:center"><img style="margin: 30px 0 0 0; min-width: 260px;" class="img-responsive" src="'+gift.image+'" /></div>',
+                            text: 'Você quer nos dar este presente? <br><div style="text-aling:center"><img style="margin: 30px 0 0 0; min-width: 260px;" class="img-responsive" src="'+gift.image+'" /></div>',
                             icon: 'glyphicon glyphicon-question-sign',
                             animate: {
                                 animate: true,
@@ -903,7 +926,6 @@
             var element=$("#"+confirmedPeople.key).prop('id');
             if(!element)
             {
-                var i=0;
                 $('.peopleConfirmedList').append('<div class="item"><img class="img-responsive img-thumbnail " id="'+confirmedPeople.uid+'" data-key="'+confirmedPeople.key+'" src="'+confirmedPeople.photoURL+'" /><span class="peopleConfirmedTitle">'+confirmedPeople.displayName+'</span></div>');
             }
         }
@@ -930,97 +952,100 @@
 
         function confirmPresenceAndThanks(confirmedPeople)
         {
-            var oldConfirmedPeople=$('#'+confirmedPeople.uid);
-            if(!oldConfirmedPeople.length)
+            if(confirmedPeople)
             {
-                PNotify.removeAll();
-                new PNotify({
-                    title: 'Obaa!',
-                    text: 'Podemos contar com a sua presença então <b>'+confirmedPeople.displayName+'</b>?',
-                    icon: 'glyphicon glyphicon-question-sign',
-                    animate: {
-                        animate: true,
-                        in_class: 'bounceInDown',
-                        out_class: 'hinge'
-                    },
-                    confirm: {
-                        confirm: true,
-                        buttons: [{
-                            text: 'Sim eu vou!',
-                            click: function(notice)
-                            {
-                                if(writeconfirmedPeopleData(confirmedPeople))
+                var oldConfirmedPeople=$('#'+confirmedPeople.uid);
+                if(!oldConfirmedPeople.length)
+                {
+                    PNotify.removeAll();
+                    new PNotify({
+                        title: 'Obaa!',
+                        text: 'Podemos contar com a sua presença então <b>'+confirmedPeople.displayName+'</b>?',
+                        icon: 'glyphicon glyphicon-question-sign',
+                        animate: {
+                            animate: true,
+                            in_class: 'bounceInDown',
+                            out_class: 'hinge'
+                        },
+                        confirm: {
+                            confirm: true,
+                            buttons: [{
+                                text: 'Sim eu vou!',
+                                click: function(notice)
                                 {
-                                    toggleCarousel();
+                                    if(writeconfirmedPeopleData(confirmedPeople))
+                                    {
+                                        toggleCarousel();
+                                        notice.remove();
+                                        Welcome(confirmedPeople);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/home/contact",
+                                            data: {
+                                                name: confirmedPeople.displayName,
+                                                email: confirmedPeople.email,
+                                                text: confirmedPeople.displayName+" acabou de confirmar presença!",
+                                                subject: "acabou de confirmar presença"
+                                            },
+                                        });
+                                    }
+                                }
+                            },{
+                                text: 'Não',
+                                click: function(notice)
+                                {
+                                    notice.remove();
+                                    notGo(oldConfirmedPeople);
+                                }
+                            }]
+                        },
+                        buttons: {
+                            closer: false,
+                            sticker: false
+                        },
+                        history: {
+                            history: false
+                        }
+                    });
+                }
+                else
+                {
+                    PNotify.removeAll();
+                    new PNotify({
+                        title: 'Ué!',
+                        text: 'Você já tinha confirmado presença antes <b>'+confirmedPeople.displayName+'</b>! Você não vai mais poder ir?',
+                        animate: {
+                            animate: true,
+                            in_class: 'bounceInDown',
+                            out_class: 'hinge'
+                        },
+                        confirm: {
+                            confirm: true,
+                            buttons: [{
+                                text: 'Sim eu vou!',
+                                click: function(notice)
+                                {
                                     notice.remove();
                                     Welcome(confirmedPeople);
-                                    //$.ajax({
-                                    //    type: "POST",
-                                    //    url: "/home/contact",
-                                    //    data: {
-                                    //        name: confirmedPeople.displayName,
-                                    //        email: confirmedPeople.email,
-                                    //        text: confirmedPeople.displayName+" acabou de confirmar presença!",
-                                    //        subject: "acabou de confirmar presença"
-                                    //    },
-                                    //});
                                 }
-                            }
-                        },{
-                            text: 'Não',
-                            click: function(notice)
-                            {
-                                notice.remove();
-                                notGo(oldConfirmedPeople);
-                            }
-                        }]
-                    },
-                    buttons: {
-                        closer: false,
-                        sticker: false
-                    },
-                    history: {
-                        history: false
-                    }
-                });
-            }
-            else
-            {
-                PNotify.removeAll();
-                new PNotify({
-                    title: 'Ué!',
-                    text: 'Você já tinha confirmado presença antes <b>'+confirmedPeople.displayName+'</b>! Você não vai mais poder ir?',
-                    animate: {
-                        animate: true,
-                        in_class: 'bounceInDown',
-                        out_class: 'hinge'
-                    },
-                    confirm: {
-                        confirm: true,
-                        buttons: [{
-                            text: 'Sim eu vou!',
-                            click: function(notice)
-                            {
-                                notice.remove();
-                                Welcome(confirmedPeople);
-                            }
-                        },{
-                            text: 'Não, não poderei ir',
-                            click: function(notice)
-                            {
-                                notice.remove();
-                                notGo(oldConfirmedPeople);
-                            }
-                        }]
-                    },
-                    buttons: {
-                        closer: false,
-                        sticker: false
-                    },
-                    history: {
-                        history: false
-                    }
-                });
+                            },{
+                                text: 'Não, não poderei ir',
+                                click: function(notice)
+                                {
+                                    notice.remove();
+                                    notGo(oldConfirmedPeople);
+                                }
+                            }]
+                        },
+                        buttons: {
+                            closer: false,
+                            sticker: false
+                        },
+                        history: {
+                            history: false
+                        }
+                    });
+                }
             }
         }
 

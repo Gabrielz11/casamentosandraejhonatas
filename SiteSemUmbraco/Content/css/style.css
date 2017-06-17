@@ -1,18 +1,3 @@
-/*------------------------------------------------------------------
-[Master Stylesheet]
-Theme Name: 	Sweetheart - Responsive Wedding Template
-Version:        1.0.0
-Author:         AStheme
-URL:            http://themeforest.net/user/astheme
--------------------------------------------------------------------*/
-/***********
-	Fonts
-************/
-@import url('https://fonts.googleapis.com/css?family=Great+Vibes|Roboto:400,400i,500,700|Sail');
-/*@import url("https://fonts.googleapis.com/css?family=Parisienne|Roboto:400,400i,500,700|Sail");*/
-/*--------------------------------------------------------------
-#0.1    Theme Reset Style
---------------------------------------------------------------*/
 body {
     font-family: "Roboto", sans-serif;
     background-color: #f2f0f0;
@@ -1042,7 +1027,7 @@ header #navbar .navbar-nav > .open > a:hover {
 #0.4	footer
 --------------------------------------------------------------*/
 footer {
-    background: url("../images/footer/footer-bg.jpg") center center/cover no-repeat fixed;
+    background: url("../MyImages/GaleriaSite/grande/S&J-22.jpg") center center/cover no-repeat fixed;
     position: relative;
     text-align: center;
     color: #fff;
@@ -1545,25 +1530,39 @@ footer .copyright {
     }
 }
 
+.owl-dots {
+    text-align: -webkit-center;
+}
+
+/*.couple .pic a {
+    z-index: 3;
+}
+
+.couple .pic a img {
+    z-index: 1;
+}
+
 .couple .groom .pic:before {
     content: "";
     width: 79%;
-    height: 93%;
+    height: 81%;
     border: 1px solid #fff;
     position: absolute;
     left: 17%;
     top: 3.5%;
+    z-index: 2;
 }
 
 .couple .bride .pic:before {
     content: "";
     width: 79%;
-    height: 93%;
+    height: 81%;
     border: 1px solid #fff;
     position: absolute;
     left: 4%;
     top: 3.5%;
-}
+    z-index: 2;
+}*/
 
 @media (max-width: 767px) {
     .couple .pic:before {
@@ -2077,7 +2076,7 @@ footer .copyright {
 #1.0	bquotes
 --------------------------------------------------------------*/
 .bquotes {
-    background: url("../images/bquotes-bg.jpg") center center/cover no-repeat fixed;
+    background: url("../MyImages/GaleriaSite/grande/S&J-28.jpg") center center/cover no-repeat fixed;
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
@@ -2177,7 +2176,7 @@ footer .copyright {
 }
 
     .paisDosNoivos::after {
-        background: url("../images/pais-bg.jpg") center center/cover no-repeat fixed;
+        background: url("../MyImages/GaleriaSite/grande/S&J-4.jpg") center center/cover no-repeat fixed;
         content: "";
         opacity: 0.2;
         top: 0;
@@ -2196,7 +2195,7 @@ footer .copyright {
 }
 
 .padrinhos h4 {
-    color: #d2c586;
+    color: #FFF;
     text-shadow: 1px 1px #000000;
 }
 
@@ -2345,13 +2344,25 @@ footer .copyright {
 #0.3	Padrinhos
 --------------------------------------------------------------*/
 .padrinhos {
-    background: url("../images/padrinhos-bg.jpg") center center/cover no-repeat fixed;
+    
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
     position: relative;
     padding-bottom: 105px;
 }
+
+    .padrinhos::after {
+        background: url("../MyImages/GaleriaSite/grande/S&J-16.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.9;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
 
     .padrinhos .groomsmen h3 {
         text-align: left;
@@ -2517,6 +2528,91 @@ footer .copyright {
 }
 
 /*--------------------------------------------------------------
+#0.3	Demoiselles
+--------------------------------------------------------------*/
+
+.demoiselles {
+    text-align: center;
+    color: #fff;
+    padding: 100px 0 90px;
+    position: relative;
+    padding-bottom: 105px;
+}
+
+    .demoiselles::after {
+        background: url("../MyImages/GaleriaSite/grande/S&J-47.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.7;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .demoiselles .titleName {
+        margin: 7px 0 7px 0;
+        font-size: 16px;
+    }
+
+/*--------------------------------------------------------------
+#0.3	Men Of Honor
+--------------------------------------------------------------*/
+.menOfHonor {
+    text-align: center;
+    color: #fff;
+    padding: 100px 0 90px;
+    position: relative;
+    padding-bottom: 105px;
+}
+
+    .menOfHonor::after {
+        background: url("../MyImages/GaleriaSite/grande/S&J-51.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.7;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .menOfHonor .titleName {
+        margin: 7px 0 7px 0;
+        font-size: 16px;
+    }
+
+
+/*--------------------------------------------------------------
+#0.3	organization
+--------------------------------------------------------------*/
+.organization {
+    text-align: center;
+    color: #fff;
+    padding: 100px 0 90px;
+    position: relative;
+    padding-bottom: 105px;
+}
+
+    .organization::after {
+        background: url("../MyImages/GaleriaSite/grande/S&J-44.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.7;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .organization .titleName {
+        margin: 4px 0 4px 0;
+        font-size: 16px;
+    }
+/*--------------------------------------------------------------
 #1.1	gallery
 --------------------------------------------------------------*/
 .gallery {
@@ -2563,7 +2659,7 @@ footer .copyright {
 }
 
     .gift-registry::after {
-        background: url("../images/lojas-bg.jpg") center center/cover no-repeat fixed;
+        background: url("../MyImages/GaleriaSite/grande/S&J-27.jpg") center center/cover no-repeat fixed;
         content: "";
         opacity: 0.2;
         top: 0;
@@ -3082,12 +3178,24 @@ pequeninos
 presentes
 --------------------------------------------------------------*/
 .presentes {
-    background: url("../images/presentes-bg.jpg") center center/cover no-repeat fixed;
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
     position: relative;
 }
+
+
+    .presentes::after {
+        background: url("../MyImages/GaleriaSite/grande/S&J-58.jpg") center center/cover no-repeat fixed;
+        content: "";
+        opacity: 0.9;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
 
 @media (max-width: 767px) {
     .presentes {
@@ -3287,5 +3395,3 @@ People Confirmed
         margin-top: 10px;
     }
 }
-
-
