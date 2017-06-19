@@ -228,7 +228,7 @@ a:focus, a:hover {
 
 .section-title {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 @media (max-width: 767px) {
@@ -1027,7 +1027,7 @@ header #navbar .navbar-nav > .open > a:hover {
 #0.4	footer
 --------------------------------------------------------------*/
 footer {
-    background: url("../MyImages/GaleriaSite/grande/S&J-22.jpg") center center/cover no-repeat fixed;
+    background: url("../MyImages/GaleriaSite/grande/S&J-22.jpg") center right/cover no-repeat fixed;
     position: relative;
     text-align: center;
     color: #fff;
@@ -2344,7 +2344,6 @@ footer .copyright {
 #0.3	Padrinhos
 --------------------------------------------------------------*/
 .padrinhos {
-    
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
@@ -2551,15 +2550,25 @@ footer .copyright {
         z-index: -1;
     }
 
+    .demoiselles .titulo {
+        color: #FFF;
+        text-shadow: 1px 2px #000;
+    }
+
     .demoiselles .titleName {
         margin: 7px 0 7px 0;
         font-size: 16px;
     }
 
+    .demoiselles .informativeText p {
+        color: #FFF;
+        font-size: 17px;
+        text-shadow: 1px 2px #000;
+    }
 /*--------------------------------------------------------------
 #0.3	Men Of Honor
 --------------------------------------------------------------*/
-.menOfHonor {
+.brothersOfHonor {
     text-align: center;
     color: #fff;
     padding: 100px 0 90px;
@@ -2567,7 +2576,7 @@ footer .copyright {
     padding-bottom: 105px;
 }
 
-    .menOfHonor::after {
+    .brothersOfHonor::after {
         background: url("../MyImages/GaleriaSite/grande/S&J-51.jpg") center center/cover no-repeat fixed;
         content: "";
         opacity: 0.7;
@@ -2579,11 +2588,21 @@ footer .copyright {
         z-index: -1;
     }
 
-    .menOfHonor .titleName {
+    .brothersOfHonor .titleName {
         margin: 7px 0 7px 0;
         font-size: 16px;
     }
 
+    .brothersOfHonor .titulo {
+        color: #000;
+        text-shadow: 1px 2px #ffffff;
+    }
+
+    .brothersOfHonor .informativeText p {
+        color: #FFF;
+        font-size: 17px;
+        text-shadow: 1px 2px #000;
+    }
 
 /*--------------------------------------------------------------
 #0.3	organization
@@ -2611,6 +2630,17 @@ footer .copyright {
     .organization .titleName {
         margin: 4px 0 4px 0;
         font-size: 16px;
+    }
+
+    .organization .titulo {
+        color: #000;
+        text-shadow: 1px 2px #ffffff;
+    }
+
+    .organization .informativeText p {
+        color: #FFF;
+        font-size: 17px;
+        text-shadow: 1px 2px #000;
     }
 /*--------------------------------------------------------------
 #1.1	gallery
@@ -2670,6 +2700,11 @@ footer .copyright {
         z-index: -1;
     }
 
+    .gift-registry .informativeText p {
+        color: #000;
+        font-size: 17px;
+        text-shadow: 1px 2px #fff;
+    }
 
 
 @media (max-width: 767px) {
@@ -2717,6 +2752,14 @@ footer .copyright {
         .gift-registry .text + .row > div .col img {
             margin: 0 auto !important;
         }
+}
+
+/*--------------------------------------------------------------
+#0.3	confirmation
+--------------------------------------------------------------*/
+.confirmation .informativeText {
+    color: #000;
+    text-shadow: none;
 }
 
 /*--------------------------------------------------------------
@@ -3248,7 +3291,7 @@ presentes
 
 
 .facaVcTmb {
-    margin-top: 90px;
+    margin-top: 180px;
     color: #FFF;
     left: 0px;
     bottom: 0px;

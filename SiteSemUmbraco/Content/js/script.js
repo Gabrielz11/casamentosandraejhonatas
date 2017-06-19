@@ -139,7 +139,7 @@
                 // Call slider parallax function
                 sliderBgSetting();
 
-                //Active heor slider
+                //Active hero slider
                 if($(".hero-slider").length)
                 {
                     $(".hero-slider").owlCarousel({
@@ -243,7 +243,7 @@
     -------------------------------------------*/
     if($("#clock").length)
     {
-        var marrigeDate=new Date(2017,10,14,17,0,0,0)
+        var marrigeDate=new Date(2017,10,14,16,47,0,0)
 
         $("#clock").countdown({
             until: marrigeDate
@@ -555,7 +555,7 @@
 
         if($(".map").length)
         {
-            map();
+            //map();
         }
     });
 
@@ -579,7 +579,7 @@
     {
 
         /*==========================================================================
-        Gifts and Firebase - Home
+        Gifts and Firebase
         ==========================================================================*/
         var currentUser=firebase.auth().currentUser;
 
@@ -862,7 +862,7 @@
         });
 
         /*==========================================================================
-        Presence Confirmation - Home
+        Presence Confirmation
         ==========================================================================*/
 
 
@@ -1076,6 +1076,16 @@
                     in_class: 'bounceInDown',
                     out_class: 'hinge'
                 }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/home/contact",
+                data: {
+                    name: oldConfirmedPeople.displayName,
+                    email: oldConfirmedPeople.email,
+                    text: oldConfirmedPeople.displayName+" acabou de desconfirmar presença!",
+                    subject: "acabou de desconfirmar presença"
+                },
             });
             $(oldConfirmedPeople).fadeOut();
             setTimeout(function() { $(oldConfirmedPeople).remove() },2000);

@@ -28,6 +28,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-gift fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="godfatherName" id="godfatherName" placeholder="Quem vai dar" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group ">
                     <button type="submit" id="btnCadastrar" class="btn btn-default btn-lg btn-block login-button">Cadastrar</button>
                 </div>
@@ -67,6 +75,7 @@
             writeGiftData()
             $('#name').val('');
             $('#image').val('');
+            $('#godfatherName').val('');
             return;
         });
 
@@ -76,6 +85,7 @@
             if(!gift) { gift={};}
             gift.name=$('#name').val().toUpperCase().trim();
             gift.image=$('#image').val();
+            gift.godfatherName=$('#godfatherName').val();
             if(gift.name.length>0)
             {
                 if(!gift.key)
@@ -106,6 +116,7 @@
             $('#name').data('gift',$(row).data('gift'));
             $('#name').val($(row).data('gift').name);
             $('#image').val($(row).data('gift').image);
+            $('#godfatherName').val($(row).data('gift').godfatherName);
         }
 
         function remove(row)
